@@ -1,5 +1,7 @@
 # The Template Textbook — Modular, Fillable Book Scaffold
 
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.20533125.svg)](https://zenodo.org/record/20533126)
+
 A domain-neutral exemplar that demonstrates the **book-length manuscript** shape
 for this research-template monorepo: a data-driven manuscript (parts → chapters →
 labs → question banks), a tested computational backbone under `src/`,
