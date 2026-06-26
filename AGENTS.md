@@ -4,6 +4,8 @@ Agent-facing reference for working inside the **template_textbook** exemplar: a
 modular, fillable book scaffold. Read this before editing anything. For the
 human-facing overview and quick-start commands, see [`README.md`](README.md).
 
+Decision memory and verifier hardening follow [`docs/rules/memory_and_decision_records.md`](../../../docs/rules/memory_and_decision_records.md): use nearby `WHY:` comments only for surprising local choices, keep volatile counts generated, and add negative controls for verifier-like gates.
+
 ## Invariants (do not violate)
 
 1. **`manuscript/config.yaml` is the single source of truth.** Book structure —
@@ -34,8 +36,8 @@ human-facing overview and quick-start commands, see [`README.md`](README.md).
    in `manuscript/references.bib` (`smith2020foundations`, `doe2019methods`,
    `lee2021systems`, `garcia2022dynamics`, `patel2018models`,
    `nguyen2023synthesis`, `kim2020data`, `brown2017principles`,
-   `wilson2021analysis`, `taylor2019theory`). Glossary links are
-   `[**term**](#gl:<anchor>)` with anchors: `system`, `model`, `parameter`,
+   `wilson2021analysis`, `taylor2019theory`). Glossary links use the form
+   `**term** -> #gl:<anchor>` with anchors: `system`, `model`, `parameter`,
    `variable`, `equilibrium`, `feedback`, `gradient`, `threshold`, `network`,
    `dynamics`, `emergence`, `regulation`, `boundary`, `state`, `observable`.
 
@@ -60,8 +62,8 @@ Before claiming a change is done:
       files by hand.
 - [ ] Do all `[@fig:]`/`[@tbl:]`/`[@eq:]`/`[@sec:]` references have matching
       definitions in the manuscript?
-- [ ] Does every `[@key]` resolve in `references.bib`, and every
-      `[**term**](#gl:anchor)` use a known anchor?
+- [ ] Does every `[@key]` resolve in `references.bib`, and every glossary
+      reference of the form `**term** -> #gl:anchor` use a known anchor?
 - [ ] Is the chapter still contract-complete (badge, blueprint, objectives,
       formalism, diagram, summary/terms/reading/practice)?
 - [ ] New figure or diagram? Regenerate with `scripts/generate_figures.py` /
@@ -109,34 +111,13 @@ For monorepo-wide pipeline semantics, CI job names, and the two-layer
 architecture, see the root [`AGENTS.md`](https://github.com/docxology/template/blob/main/AGENTS.md) and
 [`CLAUDE.md`](https://github.com/docxology/template/blob/main/CLAUDE.md).
 
-## Promotion to a tracked public exemplar (clean-tree follow-up)
+## Tracked public exemplar
 
-This project is **built and standalone-green** (75 tests, ≥90% coverage, ruff +
-mypy clean, audit gate green, discoverable as `templates/template_textbook`) but
-is **not yet registered** in the repo's public-exemplar rosters. Registering it
-touches shared `infrastructure/` files and cascades into several CI gates, so do
-it only on a **clean working tree** (not mid-way through unrelated WIP). Steps:
-
-1. **`infrastructure/project/git_guards.py`** — add
-   `"projects/templates/template_textbook/"` to `ALLOWED_PROJECT_DIRS` (so the
-   files may be git-tracked past the pre-push guard) and
-   `"output/templates/template_textbook/"` to `ALLOWED_TRACKED_OUTPUT_PREFIXES`
-   if you intend to track rendered output.
-2. **`infrastructure/project/public_scope.py`** — add
-   `"templates/template_textbook"` to `PUBLIC_PROJECT_NAMES` (puts it in public
-   CI lint/type/coverage-union scope).
-3. **Publication records** — `tests/infra_tests/documentation/test_publication_records.py`
-   iterates `PUBLIC_PROJECT_NAMES`; add the matching publication-record entry (or
-   adjust the generator in `infrastructure/`) so that test stays green.
-4. **Doc-pair lint** — `tests/infra_tests/validation/docs/test_doc_pair_lint.py`
-   expects README/AGENTS doc pairs across the project; they already exist here —
-   re-run to confirm.
-5. **Methods orchestration / drift** — re-run
-   `tests/infra_tests/methods/test_methods_orchestration.py`,
-   `tests/infra_tests/project/test_public_scope.py`, and
-   `uv run python scripts/check_template_drift.py` and resolve any roster
-   assertions.
-6. Re-run the combined public-projects coverage gate:
-   `uv run python scripts/01_run_tests.py --project-only --all-projects --public-projects`.
-
-Until promoted, keep the project local-only (do not `git add -f`).
+This project is a **registered, tracked public exemplar**. It is already wired
+into the repo's public-exemplar rosters — `"templates/template_textbook"` is in
+`infrastructure/project/public_scope.py` (`PUBLIC_PROJECT_NAMES`),
+`"projects/templates/template_textbook/"` is in
+`infrastructure/project/git_guards.py` (`ALLOWED_PROJECT_DIRS`), and
+`templates/template_textbook` is listed in `docs/_generated/active_projects.md`.
+No registration steps are pending; do not re-edit those shared `infrastructure/`
+files for this project.

@@ -2,10 +2,16 @@
 
 from __future__ import annotations
 
-import pytest
+from pathlib import Path
 
-from textbook.config import load_config
+import pytest
+from infrastructure.validation.content.figure_validator import validate_figure_registry
+
+from textbook.config import iter_chapters, load_config
 from visualization import _scaffold, plots
+from visualization.registry import collect_figure_registry_entries, write_figure_registry
+
+PROJECT_ROOT = Path(__file__).resolve().parent.parent
 
 
 def _png_is_nonempty(path):
@@ -38,17 +44,43 @@ def test_placeholder_overview(tmp_path):
 def test_generate_chapter_placeholders_matches_config(tmp_path):
     config = load_config()
     paths = plots.generate_chapter_placeholders(tmp_path, config)
-    assert len(paths) == 12
+    # One placeholder per enabled chapter — derive from config, not a literal.
+    assert len(paths) == len(iter_chapters(config))
     for path in paths:
         _png_is_nonempty(path)
 
 
 def test_generate_all_figures(tmp_path):
+    worked = plots.generate_worked_figures(tmp_path)
     paths = plots.generate_all_figures(tmp_path)
-    assert len(paths) == 16  # 4 worked + 12 chapter placeholders
+    # all figures = worked figures + one placeholder per enabled chapter.
+    assert len(paths) == len(worked) + len(iter_chapters(load_config()))
     names = {p.name for p in paths}
-    assert "logistic_growth.png" in names
-    assert "part_I_first_principles.png" in names
+    assert "logistic_growth.png" in names  # a worked figure
+    assert "part_0_orientation.png" in names  # a chapter placeholder that is displayed
+
+
+def test_figure_registry_entries_match_manuscript_labels(tmp_path):
+    plots.generate_all_figures(tmp_path)
+    entries = collect_figure_registry_entries(PROJECT_ROOT / "manuscript", tmp_path)
+    labels = {entry.label for entry in entries}
+    assert "fig:part_0_orientation" in labels
+    assert "fig:gallery_line" in labels
+    assert "fig:part_III_case_studies" in labels
+
+
+def test_figure_registry_validates_manuscript_references(tmp_path):
+    paths = plots.generate_all_figures(tmp_path)
+    from visualization.gallery import generate_gallery_figures
+
+    paths.extend(generate_gallery_figures(tmp_path / "gallery"))
+    registry = write_figure_registry(PROJECT_ROOT / "manuscript", tmp_path)
+
+    ok, issues = validate_figure_registry(registry, PROJECT_ROOT / "manuscript")
+
+    assert registry.exists()
+    assert paths
+    assert ok, issues
 
 
 def test_scaffold_new_figure_and_save(tmp_path):
@@ -65,9 +97,42 @@ def test_cover_art(tmp_path):
     assert path.name == "template_textbook_cover.png"
 
 
+def test_cover_art_no_subtitle(tmp_path):
+    """cover_art with no subtitle must still produce a valid PNG."""
+    path = plots.cover_art(tmp_path)  # subtitle="" by default
+    _png_is_nonempty(path)
+    assert path.name == "template_textbook_cover.png"
+
+
 def test_figures_are_deterministic(tmp_path):
     first = tmp_path / "a"
     second = tmp_path / "b"
     p1 = plots.plot_logistic_growth(first)
     p2 = plots.plot_logistic_growth(second)
     assert p1.read_bytes() == p2.read_bytes()
+
+
+def test_figure_registry_fallback_filename(tmp_path):
+    """_figure_filename falls back to basename when path doesn't contain output/figures/."""
+    from visualization.registry import _figure_filename
+
+    # A path that doesn't contain 'output/figures' at all — the last-resort fallback.
+    image_path = "/some/completely/different/path/my_figure.png"
+    resolved = Path(image_path)
+    figures_root = tmp_path / "output" / "figures"
+    result = _figure_filename(image_path, resolved, figures_root)
+    # Fallback: just the filename.
+    assert result == "my_figure.png"
+
+
+def test_figure_registry_extracts_from_output_figures_path(tmp_path):
+    """_figure_filename extracts relative path from 'output/figures' segment."""
+    from visualization.registry import _figure_filename
+
+    # A path that has 'output/figures' in the middle.
+    image_path = "../../output/figures/gallery/gallery_bar.png"
+    resolved = (tmp_path / image_path).resolve()  # won't be under figures_root
+    figures_root = tmp_path / "nowhere"  # resolved won't be relative to this
+    result = _figure_filename(image_path, resolved, figures_root)
+    # Should extract "gallery/gallery_bar.png"
+    assert result == "gallery/gallery_bar.png"

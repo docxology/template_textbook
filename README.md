@@ -1,6 +1,6 @@
 # The Template Textbook — Modular, Fillable Book Scaffold
 
-[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.20533125.svg)](https://zenodo.org/record/20533126)
+Archived on Zenodo: [Template Textbook Zenodo record 20533126](https://zenodo.org/record/20533126).
 
 A domain-neutral exemplar that demonstrates the **book-length manuscript** shape
 for this research-template monorepo: a data-driven manuscript (parts → chapters →
@@ -14,6 +14,33 @@ generation, lab/question wiring, and the manuscript-integrity tests — reads a
 single source of truth: [`manuscript/config.yaml`](manuscript/config.yaml). To
 grow the book you edit that file, then run a thin orchestrator that materialises
 the missing stub files in the correct shape.
+
+## Run via the template monorepo
+
+This exemplar lives at `projects/templates/template_textbook/` in the public
+[docxology/template](https://github.com/docxology/template) repository.
+**Tests, analysis, PDF rendering, and CI all run through that monorepo** —
+clone it, run `uv sync` at the repository root, then:
+
+```bash
+./run.sh --project templates/template_textbook --pipeline --core-only
+# or: uv run python scripts/execute_pipeline.py --project templates/template_textbook --core-only
+```
+
+Several exemplars also publish standalone GitHub/Zenodo releases for citation;
+those mirrors are outputs of this pipeline. The monorepo remains the canonical
+build and render surface.
+
+## When to use this template
+
+Use this template for **book-length manuscripts**: parts → chapters → labs →
+question banks declared in a single `config.yaml`, with auto-numbering,
+deterministic figure/diagram generation, and structural-contract tests that
+keep hundreds of pages from drifting. For a single-paper computational
+project see [`template_code_project`](../template_code_project/); for
+editorial/prose review see
+[`template_prose_project`](../template_prose_project/). Full roster:
+[`projects/AGENTS.md`](../../AGENTS.md#permanent-canonical-exemplars-and-optional-search-add-on).
 
 ## What this template is
 
@@ -38,7 +65,7 @@ template_textbook/
 │   ├── config.yaml            # SINGLE SOURCE OF TRUTH (parts → chapters)
 │   ├── references.bib         # citation keys ([@key] must resolve here)
 │   ├── glossary.md            # glossary anchors ([**term**](#gl:anchor))
-│   ├── part_0/ … part_III/    # 12 chapter .md files (4 parts × 3 chapters)
+│   ├── part_0/ … part_III/    # one .md per chapter; parts & chapters declared in config.yaml
 │   ├── labs/<part>/           # one lab per chapter (lab_<stem>.md)
 │   ├── questions/<part>/      # one question bank per chapter (q_<stem>.md)
 │   ├── appendices/            # reference appendices
@@ -48,7 +75,7 @@ template_textbook/
 │   ├── visualization/         # deterministic matplotlib figures
 │   ├── mermaid/               # Mermaid sources (PNG or .mmd fallback)
 │   └── textbook_*.py          # paths, io, logging, visuals utilities
-├── scripts/                   # thin orchestrators (figures, diagrams, scaffold, audit)
+├── scripts/                   # thin orchestrators (figures, diagrams, analysis, scaffold, audit)
 ├── tests/                     # no-mocks suite incl. test_manuscript_integrity.py
 └── pyproject.toml             # project config (90% coverage gate)
 ```
@@ -73,7 +100,9 @@ uv run python projects/templates/template_textbook/scripts/generate_figures.py
 uv run python projects/templates/template_textbook/scripts/generate_diagrams.py
 
 # 4. Run the test suite with coverage (must collect >0 tests, ≥90% coverage)
-uv run --extra dev python -m pytest projects/templates/template_textbook/tests/ \
+#    From the monorepo root, `dev` is a default dependency-group (plain `uv run`);
+#    the `--extra dev` form only works from inside the project dir.
+uv run python -m pytest projects/templates/template_textbook/tests/ \
   --cov=projects/templates/template_textbook/src --cov-fail-under=90
 
 # 5. Audit the manuscript against the structural contract
@@ -146,3 +175,10 @@ Dual-licensed: **code** (`src/`, `scripts/`, `tests/`) under **Apache-2.0**
 ([`LICENSE`](LICENSE)); **manuscript content** (`manuscript/`) under
 **CC BY 4.0** ([`LICENSE-CONTENT.md`](LICENSE-CONTENT.md)). See also
 [`CHANGELOG.md`](CHANGELOG.md).
+
+## Template integrity
+
+- Forward backlog: [`TODO.md`](TODO.md).
+- Copy-and-customize config: [`manuscript/config.yaml.example`](manuscript/config.yaml.example).
+- Project validation: `uv run pytest projects/templates/template_textbook/tests/ --cov=projects/templates/template_textbook/src --cov-fail-under=90`.
+- Repo drift validation: `uv run python scripts/check_template_drift.py --strict`.

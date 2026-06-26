@@ -9,7 +9,9 @@ filter. For the rules governing *where* these must appear, see [`AGENTS.md`](AGE
 Reference a generated PNG, give it a label, and add an alt-text comment:
 
 ```markdown
-![Caption describing the figure.](../figures/part_0_orientation.png){#fig:part_0_orientation width=90%}
+# In a chapter (manuscript/<part>/<chapter>.md) use two `..` to reach output/figures/:
+![Caption describing the figure.](../../output/figures/part_0_orientation.png){#fig:part_0_orientation width=90%}
+# (A top-level manuscript/*.md file would use a single `..`.)
 
 <!-- alt: One-sentence description of the figure for accessibility. -->
 ```
@@ -52,7 +54,7 @@ Inline diagrams use a fenced `mermaid` block:
 graph TD
   A[Inputs / assumptions] --> B[Model]
   B --> C[Predictions]
-  C -->|revise| A
+  C -->|"revise"| A
 ```
 ````
 

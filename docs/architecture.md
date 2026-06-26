@@ -60,7 +60,7 @@ src/textbook/
 - [`src/visualization/plots.py`](../src/visualization/plots.py) produces every
   matplotlib figure deterministically: four **worked** figures (driven by
   `models.py`) plus one **placeholder** per chapter, named `<part_id>_<stem>.png`
-  to match the `![...](../figures/<part_id>_<stem>.png)` path the scaffolded
+  to match the `![...](../output/figures/<part_id>_<stem>.png)` path the scaffolded
   chapters already reference.
 - [`src/mermaid/`](../src/mermaid) reads
   [`diagram_specs.yaml`](../src/mermaid/diagram_specs.yaml) and emits Mermaid
@@ -101,15 +101,15 @@ on every run.
 
 ```mermaid
 flowchart TD
-    CFG[manuscript/config.yaml<br/>single source of truth]
-    CFG --> ENG[src/textbook engine<br/>config · toc · content · constants]
-    CFG --> VIS[src/visualization + src/mermaid<br/>deterministic generators]
-    ENG --> SCAF[scaffold_chapter.py<br/>materialise missing stubs]
-    SCAF --> MS[manuscript/*.md<br/>chapters · labs · questions]
-    VIS --> FIG[output/figures/*.png<br/>+ mermaid diagrams]
-    MS --> RENDER[infrastructure rendering<br/>pandoc-crossref → PDF/HTML]
+    CFG[manuscript config.yaml]
+    CFG --> ENG[textbook engine src]
+    CFG --> VIS[visualization and mermaid src]
+    ENG --> SCAF[scaffold_chapter.py]
+    SCAF --> MS[manuscript markdown]
+    VIS --> FIG[output figures]
+    MS --> RENDER[infrastructure rendering]
     FIG --> RENDER
-    ENG --> GATE[audit_textbook_quality.py<br/>+ manuscript-integrity tests]
+    ENG --> GATE[quality audit and tests]
     MS --> GATE
 ```
 
