@@ -1,8 +1,10 @@
-"""Thin orchestrator: generate every matplotlib figure the manuscript references.
+"""Thin orchestrator: generate matplotlib figures the manuscript references.
 
-Delegates all computation/drawing to ``src/visualization/plots.py``. Default
-output: ``<project_root>/output/figures/``. Prints each path for manifest
-collection by the pipeline.
+Delegates chapter plots to ``visualization.plots.generate_all_figures``, the
+optional format gallery to ``visualization.gallery.generate_gallery_figures``,
+and registry emission to ``visualization.registry.write_figure_registry``.
+Default output: ``<project_root>/output/figures/``. Prints each path for
+manifest collection by the pipeline.
 """
 
 from __future__ import annotations
@@ -16,6 +18,7 @@ ensure_project_paths()
 
 
 def main() -> int:
+    """CLI entry point."""
     from textbook_logging import get_logger
     from visualization.gallery import generate_gallery_figures
     from visualization.plots import generate_all_figures
