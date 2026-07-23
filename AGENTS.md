@@ -12,7 +12,10 @@ Decision memory and verifier hardening follow [`docs/rules/memory_and_decision_r
    parts, chapters, labels, directories, the order of analysis scripts, front
    matter, and appendices — lives there and nowhere else. Never hand-number
    chapters, figures, equations, or sections; the TOC and numbering are derived
-   from this file by `src/textbook/toc.py`.
+   from this file by `src/textbook/toc.py`. Config paths must be relative,
+   portable Markdown filenames; the validator rejects traversal, absolute
+   paths, nested chapter filenames, and duplicate source paths before any
+   scaffold or audit touches the filesystem.
 
 2. **Thin orchestrators.** All business logic lives in `src/textbook/`,
    `src/visualization/`, `src/mermaid/`, or `infrastructure/`. Scripts under
@@ -70,7 +73,11 @@ Before claiming a change is done:
       `scripts/generate_diagrams.py` (deterministic, fixed seed).
 - [ ] `uv run python -m pytest <tests/> --cov=<src> --cov-fail-under=90`
       passes (collected > 0, ≥90%).
-- [ ] `scripts/audit_textbook_quality.py` passes.
+- [ ] `scripts/audit_textbook_quality.py` passes for scaffold structure.
+- [ ] Before describing a fork as filled or complete,
+      `scripts/audit_textbook_quality.py --require-complete` passes with zero
+      per-section and total stub counts. The default mode intentionally allows
+      stubs in this fillable exemplar.
 
 ## Frozen vs. fillable
 

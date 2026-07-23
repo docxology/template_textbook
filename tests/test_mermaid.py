@@ -2,10 +2,14 @@
 
 from __future__ import annotations
 
+import os
+import subprocess
+from pathlib import Path
+
 import pytest
 
 from mermaid import diagrams
-from mermaid.renderer import MermaidRenderer, RenderResult, mmdc_available
+from mermaid.renderer import MermaidRenderer, RenderResult, _resolve_mmdc, _run_mmdc, mmdc_available
 
 
 def test_load_specs_from_default_file():
@@ -161,6 +165,15 @@ def test_mmdc_available_returns_bool():
     assert isinstance(mmdc_available(), bool)
 
 
+def test_mmdc_resolution_accepts_repository_local_install():
+    """The canonical checkout works without a caller-managed PATH export."""
+    local_mmdc = Path(__file__).resolve().parents[4] / "node_modules" / ".bin" / "mmdc"
+    if local_mmdc.exists():
+        assert _resolve_mmdc() == str(local_mmdc)
+    else:
+        assert _resolve_mmdc() is None or mmdc_available()
+
+
 def test_build_flowchart_defaults():
     """build_flowchart with no direction falls back to TD."""
     spec = {
@@ -187,9 +200,7 @@ def test_build_state_no_label_transition():
 
 def test_build_class_no_relations():
     """A class diagram with no relations is still valid."""
-    src = diagrams.build_class(
-        {"classes": [{"name": "MyClass", "members": []}], "relations": []}
-    )
+    src = diagrams.build_class({"classes": [{"name": "MyClass", "members": []}], "relations": []})
     assert "classDiagram" in src
     assert "class MyClass {" in src
 
@@ -258,6 +269,13 @@ def test_all_spec_names_are_unique():
     specs = diagrams.load_specs()
     names = [s["name"] for s in specs]
     assert len(names) == len(set(names)), "duplicate spec names in diagram_specs.yaml"
+
+
+@pytest.mark.skipif(os.name != "posix", reason="process groups differ on Windows")
+def test_mmdc_timeout_reaps_descendant_processes():
+    """The Mermaid timeout boundary must clean up browser-like descendants."""
+    with pytest.raises(subprocess.TimeoutExpired):
+        _run_mmdc(["/bin/sh", "-c", "sleep 30"], timeout=1)
 
 
 def test_load_specs_with_custom_path(tmp_path):
