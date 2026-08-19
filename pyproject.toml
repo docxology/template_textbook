@@ -30,7 +30,7 @@ dev = [
     "pytest-cov>=4.1.0",
 ]
 visuals = [
-    "pillow>=10.0",
+    "pillow>=12.3.0",
 ]
 
 [tool.pytest.ini_options]
@@ -39,6 +39,9 @@ testpaths = ["tests"]
 python_files = ["test_*.py"]
 python_functions = ["test_*"]
 addopts = "-v --tb=short --strict-markers"
+markers = [
+    "slow: renderer and full-manuscript integration checks kept for release profiles",
+]
 
 [tool.coverage.run]
 source = ["src"]
