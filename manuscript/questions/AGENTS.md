@@ -38,3 +38,6 @@ Machine-readable contract for the `questions/` directory. See
 uv run python scripts/audit_textbook_quality.py
 uv run --extra dev python -m pytest tests/test_manuscript_integrity.py
 ```
+
+The audit CLI runs standalone; the integrity-test command needs the monorepo's
+`infrastructure/` package (see [`docs/testing_guide.md`](../../docs/testing_guide.md)).

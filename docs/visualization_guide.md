@@ -97,7 +97,9 @@ To replace a chapter's generated placeholder with a real, data-driven figure:
 4. **Update the chapter** so the figure caption and the `<!-- alt: ... -->`
    comment describe the real figure (the image path is already correct).
 5. **Run the visualization tests** (see the [testing guide](testing_guide.md)):
-   `uv run --extra dev python -m pytest tests/test_visualization.py`.
+   `uv run --extra dev python -m pytest tests/test_visualization.py`. That module
+   imports the monorepo-only `infrastructure.validation.content` package, so it
+   collects only from a `docxology/template` checkout.
 
 Keep figures deterministic: fixed seeds, fixed sizes via `new_figure`, no
 timestamps or randomised colours. The same input must always produce the same
