@@ -78,10 +78,14 @@ uv run pytest projects/templates/template_textbook/tests/ \
 
 ## Intentional Non-Standalone Dependencies
 
-The project-local scaffold, tests, figures, and diagrams do not require the
-template infrastructure layer. The monorepo renderer can add publication polish,
-but the fillable scaffold remains intentionally stub-heavy until a fork supplies
-domain content.
+The project-local scaffold, figures, and diagrams do not require the template
+infrastructure layer, and neither does most of the test suite. Exception:
+`tests/test_manuscript_integrity.py` and `tests/test_visualization.py` import
+`infrastructure.validation.content`, which ships only in the
+[`docxology/template`](https://github.com/docxology/template) monorepo — run
+those two from a monorepo checkout. The monorepo renderer can add publication
+polish, but the fillable scaffold remains intentionally stub-heavy until a fork
+supplies domain content.
 
 ## What Not To Claim
 

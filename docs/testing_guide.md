@@ -6,13 +6,17 @@ manuscript never drifts from its contract — even as you fill thousands of page
 
 ## Running the suite
 
-All commands use `uv` and assume you are **inside the project directory**
-(`projects/templates/template_textbook/`); the `--extra dev` form only resolves
-there. From the monorepo root, use the repo-root form instead (`uv run python -m
-pytest projects/templates/template_textbook/tests/
---cov=projects/templates/template_textbook/src --cov-fail-under=90`), as shown in
-the [`README.md`](../README.md) quick start. The `dev` extra provides `pytest`
-and `pytest-cov`.
+All commands use `uv` and assume you are **inside the project directory** — the
+repository root of a standalone mirror, or
+`projects/templates/template_textbook/` inside a monorepo checkout. The `dev`
+extra provides `pytest` and `pytest-cov`.
+
+Two suite modules (`test_manuscript_integrity.py`, `test_visualization.py`)
+import `infrastructure.validation.content`, which ships only in the
+[`docxology/template`](https://github.com/docxology/template) monorepo. Run
+those from a monorepo checkout, or add
+`--ignore=tests/test_manuscript_integrity.py --ignore=tests/test_visualization.py`
+in a standalone mirror (see the [`README.md`](../README.md) quick start).
 
 ```bash
 # Full suite

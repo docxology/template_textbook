@@ -25,10 +25,12 @@ Use this template for **book-length manuscripts**: parts → chapters → labs �
 question banks declared in a single `config.yaml`, with auto-numbering,
 deterministic figure/diagram generation, and structural-contract tests that
 keep hundreds of pages from drifting. For a single-paper computational
-project see [`template_code_project`](../template_code_project/); for
-editorial/prose review see
-[`template_prose_project`](../template_prose_project/). Full roster:
-[`projects/AGENTS.md`](../../AGENTS.md#permanent-canonical-exemplars).
+project see
+[`template_code_project`](https://github.com/docxology/template/tree/main/projects/templates/template_code_project);
+for editorial/prose review see
+[`template_prose_project`](https://github.com/docxology/template/tree/main/projects/templates/template_prose_project).
+Full roster:
+[`projects/AGENTS.md`](https://github.com/docxology/template/blob/main/projects/AGENTS.md#permanent-canonical-exemplars).
 
 ## Publication and rendering
 
@@ -139,31 +141,39 @@ chapters in all.
 
 ## Quick start
 
-All commands assume `uv` (never `pip`/`npm`). Run them from the monorepo root.
+All commands assume `uv` (never `pip`/`npm`) and run from the project
+directory — this repository root. Inside the monorepo the same commands run
+from `projects/templates/template_textbook/`, with the repo-root paths shown in
+the [monorepo README](https://github.com/docxology/template/blob/main/README.md).
 
 ```bash
-# 1. Install dependencies for the workspace
-uv sync
+# 1. Install dependencies (base deps plus the `dev` extra: pytest, pytest-cov)
+uv sync --extra dev
 
 # 2. Materialise any missing stub files declared in config.yaml
-uv run python projects/templates/template_textbook/scripts/scaffold_chapter.py
+uv run python scripts/scaffold_chapter.py
 
 # 3. Generate deterministic figures and diagrams
-uv run python projects/templates/template_textbook/scripts/generate_figures.py
-uv run python projects/templates/template_textbook/scripts/generate_diagrams.py
+uv run python scripts/generate_figures.py
+uv run python scripts/generate_diagrams.py
 
 # 4. Run the test suite with coverage (must collect >0 tests, ≥90% coverage)
-#    From the monorepo root, `dev` is a default dependency-group (plain `uv run`);
-#    the `--extra dev` form only works from inside the project dir.
-uv run python -m pytest projects/templates/template_textbook/tests/ \
-  --cov=projects/templates/template_textbook/src --cov-fail-under=90
+uv run --extra dev python -m pytest tests/ --cov=src --cov-fail-under=90
 
 # 5. Audit scaffold structure (default mode reports but allows stub markers)
-uv run python projects/templates/template_textbook/scripts/audit_textbook_quality.py
+uv run python scripts/audit_textbook_quality.py
 
 # Before calling a filled fork complete, require zero stubs in audited sections
-uv run python projects/templates/template_textbook/scripts/audit_textbook_quality.py --require-complete
+uv run python scripts/audit_textbook_quality.py --require-complete
 ```
+
+> Two suite modules (`test_manuscript_integrity.py`, `test_visualization.py`)
+> import the monorepo-only `infrastructure.validation.content` package, so they
+> cannot be collected in a standalone mirror. Run the suite from a
+> `docxology/template` checkout for the full set, or add
+> `--ignore=tests/test_manuscript_integrity.py --ignore=tests/test_visualization.py`
+> to run the standalone remainder. The 90% coverage floor is calibrated for the
+> full monorepo suite, which those two modules help cover.
 
 > Exit code 0 alone is not proof: confirm the suite collected more than zero
 > tests and that coverage met the floor. The default audit proves scaffold
@@ -239,8 +249,8 @@ Dual-licensed: **code** (`src/`, `scripts/`, `tests/`) under **Apache-2.0**
 
 - Forward backlog: [`TODO.md`](TODO.md).
 - Copy-and-customize config: [`manuscript/config.yaml.example`](manuscript/config.yaml.example).
-- Project validation: `uv run pytest projects/templates/template_textbook/tests/ --cov=projects/templates/template_textbook/src --cov-fail-under=90`.
-- Repo drift validation: `uv run python scripts/audit/check_template_drift.py --strict`.
+- Project validation: `uv run --extra dev python -m pytest tests/ --cov=src --cov-fail-under=90`.
+- Repo drift validation (monorepo only): `uv run python scripts/audit/check_template_drift.py --strict` from a `docxology/template` checkout.
 
 <!-- foam-orphan-nav:start (hand-maintained: links sub-docs so they are reachable; no generator refreshes or validates this block) -->
 

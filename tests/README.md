@@ -2,9 +2,14 @@
 
 Tests for the textbook engine in [`../src/`](../src/). The suite enforces a
 **90% project coverage minimum** (measured coverage and the collected-test total
-live in [`COUNTS.md`](../../../../docs/_generated/COUNTS.md)) and follows the
-repository's **no-mocks policy** — every test uses real data, real files, and
-real computation.
+live in the monorepo's
+[`docs/_generated/COUNTS.md`](https://github.com/docxology/template/blob/main/docs/_generated/COUNTS.md))
+and follows the repository's **no-mocks policy** — every test uses real data,
+real files, and real computation.
+
+`test_manuscript_integrity.py` and `test_visualization.py` import the
+monorepo-only `infrastructure.validation.content` package, so they only collect
+from a `docxology/template` checkout; the other modules run standalone.
 
 ## Suite map
 

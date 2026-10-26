@@ -83,7 +83,11 @@ rather than by hand.
 
 ## Before You Commit
 
+Run both from the project directory — this repository root in a standalone
+mirror, or `projects/templates/template_textbook/` inside the monorepo (the
+audit CLI resolves the project from that directory; it has no `--project` flag):
+
 ```bash
-uv run python scripts/audit_textbook_quality.py --project templates/template_textbook
-uv run --extra dev python -m pytest projects/templates/template_textbook/tests/ -v
+uv run python scripts/audit_textbook_quality.py
+uv run --extra dev python -m pytest tests/ -v
 ```

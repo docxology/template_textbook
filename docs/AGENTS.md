@@ -28,11 +28,11 @@ thin `scripts/` orchestrators wire it into the reproducible pipeline.
 
 ## Status
 
-This exemplar is a **tracked public canonical project** (see
-[`docs/_generated/active_projects.md`](../../../../docs/_generated/active_projects.md)).
+This exemplar is a **tracked public canonical project** (see the monorepo's
+[`docs/_generated/active_projects.md`](https://github.com/docxology/template/blob/main/docs/_generated/active_projects.md)).
 Published on Zenodo (concept DOI `10.5281/zenodo.20533125`).
 
 ## See also
 
 - [`../AGENTS.md`](../AGENTS.md) — project map + promotion checklist
-- [`../../../../infrastructure`](../../../../infrastructure) — Layer-1 engine the scripts call
+- [`infrastructure/`](https://github.com/docxology/template/tree/main/infrastructure) — Layer-1 engine the monorepo stages call (not shipped in a standalone mirror)

@@ -50,7 +50,10 @@ numbered at render time by `pandoc-crossref`. See [`SYNTAX.md`](SYNTAX.md).
 
 ## Render Flow
 
-The PDF is built, not typeset by hand. From the repository root:
+The PDF is built, not typeset by hand. Rendering is a monorepo-only pipeline
+stage: a standalone mirror ships the manuscript plus the already-rendered
+artifacts in [`../rendered/`](../rendered/), not the renderer. Inside a
+`docxology/template` checkout, from the repository root:
 
 ```bash
 # 1. Generate figures and diagrams (the analysis stage; deterministic)
@@ -71,16 +74,20 @@ writes the PDF to `output/templates/template_textbook/pdf/`.
 
 ## Validating as You Write
 
+From the project directory — this repository root in a standalone mirror, or
+`projects/templates/template_textbook/` inside the monorepo:
+
 ```bash
 # Structural contract + stub accounting
-uv run python scripts/audit_textbook_quality.py --project templates/template_textbook
+uv run python scripts/audit_textbook_quality.py
 
-# Manuscript-integrity tests (headings, labels, citations, glossary anchors)
-uv run --extra dev python -m pytest projects/templates/template_textbook/tests/test_manuscript_integrity.py -v
-
-# Markdown validation
-uv run python -m infrastructure.validation.cli markdown projects/templates/template_textbook/manuscript/
+# Manuscript-integrity tests (headings, labels, citations, glossary anchors);
+# these import the monorepo-only infrastructure.validation.content package
+uv run --extra dev python -m pytest tests/test_manuscript_integrity.py -v
 ```
+
+Inside the monorepo, Markdown validation adds the Layer-1
+`infrastructure.validation.cli` check over the same manuscript directory.
 
 For the full editing contract see [`AGENTS.md`](AGENTS.md); for the authoring
 walkthrough see [`appendices/appendix_authoring_guide.md`](appendices/appendix_authoring_guide.md).

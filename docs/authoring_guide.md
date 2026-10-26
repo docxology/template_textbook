@@ -90,6 +90,11 @@ uv run python scripts/audit_textbook_quality.py
 uv run --extra dev python -m pytest --cov=src --cov-fail-under=90   # if you touched src/
 ```
 
+The integrity-test command imports the monorepo-only
+`infrastructure.validation.content` package, so it collects only from a
+`docxology/template` checkout (see the [testing guide](testing_guide.md)); the
+audit CLI and the rest of the suite run in a standalone mirror.
+
 The integrity tests fail fast on a missing required section, an undefined
 citation or glossary anchor, or a chapter/lab/question that the config declares
 but disk is missing — so the contract stays enforced, not aspirational.

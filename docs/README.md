@@ -51,9 +51,10 @@ live in the [authoring guide](authoring_guide.md).
 
 ## Tooling
 
-All commands use `uv` (never `pip`/`npm`). From inside the project directory,
-tests run with `uv run --extra dev python -m pytest`; from the monorepo root, use
-the repo-root form (`uv run python -m pytest
-projects/templates/template_textbook/tests/ …`) shown in the
-[`README.md`](../README.md) quick start. Figures and diagrams are produced by the
-scripts, never by hand. See each guide for exact invocations.
+All commands use `uv` (never `pip`/`npm`) and run from the project directory —
+this repository root in a standalone mirror, or
+`projects/templates/template_textbook/` in the monorepo. Tests run with
+`uv run --extra dev python -m pytest`; two integrity modules additionally need
+the monorepo's `infrastructure/` package on `sys.path` (see the
+[`README.md`](../README.md) quick start). Figures and diagrams are produced by
+the scripts, never by hand. See each guide for exact invocations.
