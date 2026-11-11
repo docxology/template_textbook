@@ -76,3 +76,7 @@ No active rows are currently scoped at this size.
 
 Rows remain active until the acceptance command and negative control pass in the same source revision.
 A blocked row is a deliberate boundary, not a skipped success.
+
+## Workflowz review — 2026-11-10
+
+Coverage note: bounded packet review (5 project files and excerpts from 22 of 44 source candidates; 195 files total). No concrete improvement is added. The reviewed stub markers are intentional scaffold content (`src/textbook/constants.py:76-77`, `src/textbook/content.py:49-55`), default audit mode deliberately permits them while `--require-complete` rejects them (`src/textbook/audit.py:173-178`, `scripts/audit_textbook_quality.py:30-34`), Mermaid `.mmd` output is an explicit optional-tool fallback (`src/mermaid/renderer.py:56-66`), chapter placeholder figures are labelled replacement targets (`src/visualization/plots.py:91-108`), and the visible fake test root is an intentional filesystem fixture (`tests/test_paths_io.py:145-152`). Re-review on a concrete correctness failure, contract/documentation mismatch, or relevant source/dependency/runtime change.
