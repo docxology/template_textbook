@@ -7,6 +7,8 @@ deterministic figure and diagram generators, and a content scaffold/validation
 engine that lets a future author fill marked stubs out to hundreds or thousands
 of pages without drifting from the structural contract.
 
+![Rendered cover of The Template Textbook modular book-length manuscript scaffold](manuscript/assets/cover/template_textbook_cover.png)
+
 Everything downstream â€” the table of contents, chapter auto-numbering, figure
 generation, lab/question wiring, and the manuscript-integrity tests â€” reads a
 single source of truth: [`manuscript/config.yaml`](manuscript/config.yaml). To
@@ -190,74 +192,57 @@ The workflow is always **edit config, then scaffold**:
    chapter, lab, and question-bank stub in the contract-compliant shape. Existing
    files are left untouched.
 3. Fill the prose between the stub markers (`<!-- STUB -->`, `TODO:`, `TKTK`).
-   Keep the labelled headings, the figure/equation/table cross-references, and the
-   curriculum scaffold intact.
-4. Regenerate figures/diagrams if you added new ones, then run the tests and the
-   structural audit. Once every audited section is filled, also run the audit
-   with `--require-complete`; it reports each section's stub count and fails
-   until the total reaches zero.
-
-Because structure is declared once in YAML, the book can scale from this 12-chapter
-skeleton to an arbitrarily large work without renumbering anything by hand.
-
-## The design in one paragraph
-
-`config.yaml` declares the structure. `src/textbook/` turns that declaration into
-numbering (`toc.py`), validation and scaffolding (`content.py`), the structural
-contract (`constants.py`), and worked formalisms (`models.py`). `scripts/` are
-**thin orchestrators**: they import tested methods from `src/`, handle I/O and
-visualization, and never implement business logic themselves. `tests/` enforce
-both the math and the manuscript contract with real data and no mocks.
-
-## Documentation map
-
-| Document | Read it for |
-| --- | --- |
-| **This file (`README.md`)** | Overview, directory map, quick-start commands, how to grow the book |
-| [`AGENTS.md`](AGENTS.md) | Agent-facing reference: invariants, editing checklist, frozen vs. fillable files |
-| [`manuscript/config.yaml`](manuscript/config.yaml) | The single source of truth for book structure |
-| Monorepo [`README.md`](https://github.com/docxology/template/blob/main/README.md) / [`CLAUDE.md`](https://github.com/docxology/template/blob/main/CLAUDE.md) / [`AGENTS.md`](https://github.com/docxology/template/blob/main/AGENTS.md) | Pipeline semantics, CI parity, two-layer architecture |
-
-## Worked exemplars vs. stubs
-
-Two chapters are filled to completion as **finished-prose references** â€” copy
-their shape when filling the rest:
-
-- [`manuscript/part_I/first_principles.md`](manuscript/part_I/first_principles.md) â€” a *model-derivation* chapter (logistic growth, worked numbers from `textbook.models`).
-- [`manuscript/part_III/case_studies.md`](manuscript/part_III/case_studies.md) â€” a *data-driven case study* (grouping, a fit, and honest limits).
-
-Every other chapter ships as a structurally-complete **stub** (marked with
-`<!-- STUB -->` / `TODO:`). The appendices
-[`appendix_format_gallery.md`](manuscript/appendices/appendix_format_gallery.md)
-and [`appendix_formalisms.md`](manuscript/appendices/appendix_formalisms.md)
-demonstrate every content primitive and every formal element.
-
-## Output formats
-
-The book renders to **PDF, HTML, EPUB, and DOCX** (`render.formats` in
-`config.yaml`). Diagrams embed as images when a Chrome binary is reachable by
-`mmdc` (see [`docs/visualization_guide.md`](docs/visualization_guide.md)).
-
-## License
-
-Dual-licensed: **code** (`src/`, `scripts/`, `tests/`) under **Apache-2.0**
-([`LICENSE`](LICENSE)); **manuscript content** (`manuscript/`) under
-**CC BY 4.0** ([`LICENSE-CONTENT.md`](LICENSE-CONTENT.md)). See also
-[`CHANGELOG.md`](CHANGELOG.md).
-
-## Template integrity
-
-- Forward backlog: [`TODO.md`](TODO.md).
-- Copy-and-customize config: [`manuscript/config.yaml.example`](manuscript/config.yaml.example).
-- Project validation: `uv run --extra dev python -m pytest tests/ --cov=src --cov-fail-under=90`.
-- Repo drift validation (monorepo only): `uv run python scripts/audit/check_template_drift.py --strict` from a `docxology/template` checkout.
-
-<!-- foam-orphan-nav:start (hand-maintained: links sub-docs so they are reachable; no generator refreshes or validates this block) -->
-
-## Directory & sub-document map
-
-Navigation links to in-tree documents (keeps them discoverable):
-
-- [src/ â€” agent notes](src/AGENTS.md)
-
-<!-- foam-orphan-nav:end -->
+   Keep the labelled heXY[™ÜËHšYİ\™KÙ\]X][Û‹İX›HÜ›ÜÜË\™Y™\™[˜Ù\Ë[™Bˆİ\œšXİ[[HØØY™›Û[Xİ‚ˆ™YÙ[™\˜]HšYİ\™\ËÙXYÜ˜[\ÈYˆ[İHYY™]ÈÛ™\Ë[ˆ[ˆH\İÈ[™BˆİXİ\˜[]Y]ˆÛ˜ÙH]™\H]Y]YÙXİ[Ûˆ\Èš[Y[ÛÈ[ˆH]Y]ˆÚ]K\™\]Z\™KXÛÛ\]XÈ]™\ÜÈXXÚÙXİ[Û‰ÜÈİXˆÛİ[[™˜Z[Âˆ[[Hİ[™XXÚ\È™\›Ë‚‚™XØ]\ÙHİXİ\™H\ÈXÛ\™YÛ˜ÙH[ˆPSSH›ÛÚÈØ[ˆØØ[Hœ›ÛH\ÈL‹XÚ\\‚œÚÙ[]ÛˆÈ[ˆ\˜š]˜\š[H\™ÙHÛÜšÈÚ]İ]™[[X™\š[™È[][™ÈH[™‚‚ˆÈÈH\ÚYÛˆ[ˆÛ™H\˜YÜ˜\‚˜ÛÛ™šYËX[[XÛ\™\ÈHİXİ\™KˆÜ˜Ëİ^›ÛÚËØ\›œÈ]XÛ\˜][Ûˆ[Â›[X™\š[™È
+ØËœX
+K˜[Y][Ûˆ[™ØØY™›Û[™È
+ÛÛ[œX
+KHİXİ\˜[˜ÛÛ˜Xİ
+ÛÛœİ[ËœX
+K[™ÛÜšÙY›Ü›X[\Û\È
+[Ù[ËœX
+KˆØÜš\ËØ\™BŠŠ[ˆÜ˜Ú\İ˜]ÜœÊŠˆ^H[\Ü\İYY]ÙÈœ›ÛHÜ˜ËØ[™HKÓÈ[™š\İX[^˜][Û‹[™™]™\ˆ[\[Y[\Ú[™\ÜÈÙÚXÈ[\Ù[™\Ëˆ\İËØ[™›Ü˜ÙB˜›İHX][™HX[\ØÜš\ÛÛ˜XİÚ]™X[]H[™›È[ØÚÜË‚‚ˆÈÈØİ[Y[][ÛˆX\‚ŸØİ[Y[™XY]›ÜˆŸKKHKKHŸ
+Š•\Èš[H
+‘PQQK›Y
+JŠˆİ™\šY]Ë\™XİÜHX\]ZXÚË\İ\ÛÛ[X[™ËİÈÈÜ›İÈH›ÛÚÈŸØQÑS•Ë›YJQÑS•Ë›Y
+HYÙ[Y˜XÚ[™È™Y™\™[˜ÙNˆ[˜\šX[ËY][™ÈÚXÚÛ\İœ›Ş™[ˆœËˆš[X›Hš[\ÈŸØX[\ØÜš\ØÛÛ™šYËX[[JX[\ØÜš\ØÛÛ™šYËX[[
+HHÚ[™ÛHÛİ\˜ÙHÙˆ]›Üˆ›ÛÚÈİXİ\™HŸ[Û›Ü™\ÈØ‘PQQK›YJÎ‹ËÙÚ]X‹˜ÛÛKÙØŞÛÙŞKİ[\]KØ›Ø‹ÛXZ[‹Ô‘PQQK›Y
+HÈØÓUQK›YJÎ‹ËÙÚ]X‹˜ÛÛKÙØŞÛÙŞKİ[\]KØ›Ø‹ÛXZ[‹ĞÓUQK›Y
+HÈØQÑS•Ë›YJÎ‹ËÙÚ]X‹˜ÛÛKÙØŞÛÙŞKİ[\]KØ›Ø‹ÛXZ[‹ĞQÑS•Ë›Y
+H\[[™HÙ[X[XÜËÒH\š]KÛË[^Y\ˆ\˜Ú]Xİ\™H‚ˆÈÈÛÜšÙY^[\\œÈœËˆİXœÂ‚•ÛÈÚ\\œÈ\™Hš[YÈÛÛ\][Ûˆ\È
+Š™š[š\ÚY\›ÜÙH™Y™\™[˜Ù\ÊŠˆ8 %ÛÜBZ\ˆÚ\HÚ[ˆš[[™ÈH™\İ‚‚‹HØX[\ØÜš\Ü\ÒKÙš\œİÜš[˜Ú\\Ë›YJX[\ØÜš\Ü\ÒKÙš\œİÜš[˜Ú\\Ë›Y
+H8 %H
+›[Ù[Y\š]˜][ÛŠˆÚ\\ˆ
+ÙÚ\İXÈÜ›İİÛÜšÙY[X™\œÈœ›ÛH^›ÛÚË›[Ù[Ø
+K‚‹HØX[\ØÜš\Ü\ÒRRKØØ\ÙWÜİYY\Ë›YJX[\ØÜš\Ü\ÒRRKØØ\ÙWÜİYY\Ë›Y
+H8 %H
+™]KYš]™[ˆØ\ÙHİYJˆ
+Ü›İ\[™ËHš][™Û™\İ[Z]ÊK‚‚‘]™\Hİ\ˆÚ\\ˆÚ\È\ÈHİXİ\˜[KXÛÛ\]H
+ŠœİXŠŠˆ
+X\šÙYÚ]˜KKHÕPˆˆKO˜ÈÑÎ˜
+KˆH\[™XÙ\Â–Ø\[™^Ù›Ü›X]ÙØ[\K›YJX[\ØÜš\Ø\[™XÙ\ËØ\[™^Ù›Ü›X]ÙØ[\K›Y
+B˜[™Ø\[™^Ù›Ü›X[\Û\Ë›YJX[\ØÜš\Ø\[™XÙ\ËØ\[™^Ù›Ü›X[\Û\Ë›Y
+B™[[Ûœİ˜]H]™\HÛÛ[š[Z]]™H[™]™\H›Ü›X[[[Y[‚‚ˆÈÈİ]]›Ü›X]Â‚•H›ÛÚÈ™[™\œÈÈ
+Š”‹STP‹[™ĞÖ
+Šˆ
+™[™\‹™›Ü›X]Ø[‚˜ÛÛ™šYËX[[
+KˆXYÜ˜[\È[X™Y\È[XYÙ\ÈÚ[ˆHÚ›ÛYHš[˜\H\È™XXÚX›HB˜[YØ
+ÙYHØØÜËİš\İX[^˜][Û—ÙİZYK›YJØÜËİš\İX[^˜][Û—ÙİZYK›Y
+JK‚‚ˆÈÈXÙ[œÙB‚‘X[[XÙ[œÙYˆ
+Š˜ÛÙJŠˆ
+Ü˜ËØØÜš\ËØ\İËØ
+H[™\ˆ
+Š\XÚKL‹Œ
+Š‚ŠØPÑS”ÑXJPÑS”ÑJJNÈ
+Š›X[\ØÜš\ÛÛ[
+Šˆ
+X[\ØÜš\Ø
+H[™\‚ŠŠĞÈ–HŒ
+Šˆ
+ØPÑS”ÑKPÓÓ•S•›YJPÑS”ÑKPÓÓ•S•›Y
+JKˆÙYH[ÛÂ–ØÒS‘ÑSÑË›YJÒS‘ÑSÑË›Y
+K‚‚ˆÈÈ[\]H[YÜš]B‚‹H›ÜØ\™˜XÚÛÙÎˆØÑË›YJÑË›Y
+K‚‹HÛÜKX[™Xİ\İÛZ^™HÛÛ™šYÎˆØX[\ØÜš\ØÛÛ™šYËX[[™^[\XJX[\ØÜš\ØÛÛ™šYËX[[™^[\JK‚‹H›Ú™Xİ˜[Y][Ûˆ]ˆ[ˆKY^˜H]ˆ]Ûˆ[H]\İ\İËÈKXÛİ\Ü˜ÈKXÛİ‹Y˜Z[][™\NL‚‹H™\ÈšY˜[Y][Ûˆ
+[Û›Ü™\ÈÛ›JNˆ]ˆ[ˆ]ÛˆØÜš\ËØ]Y]ØÚXÚ×İ[\]WÙšYœHK\İšXİœ›ÛHHØŞÛÙŞKİ[\]XÚXÚÛİ]‚‚KKH›Ø[K[Üœ[‹[˜]œİ\
+[™[XZ[Z[™Yˆ[šÜÈİX‹YØÜÈÛÈ^H\™H™XXÚX›NÈ›ÈÙ[™\˜]Üˆ™Yœ™\Ú\ÈÜˆ˜[Y]\È\È›ØÚÊHKO‚‚ˆÈÈ\™XİÜH	ˆİX‹YØİ[Y[X\‚“˜]šYØ][Ûˆ[šÜÈÈ[‹]™YHØİ[Y[È
+ÙY\È[H\ØÛİ™\˜X›JN‚‚‹HÜÜ˜ËÈ8 %YÙ[›İ\×JÜ˜ËĞQÑS•Ë›Y
+B‚KKH›Ø[K[Üœ[‹[˜]™[™KO‚
