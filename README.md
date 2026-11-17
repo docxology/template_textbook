@@ -7,6 +7,8 @@ deterministic figure and diagram generators, and a content scaffold/validation
 engine that lets a future author fill marked stubs out to hundreds or thousands
 of pages without drifting from the structural contract.
 
+![Rendered cover of The Template Textbook modular book-length manuscript scaffold](manuscript/assets/cover/template_textbook_cover.png)
+
 Everything downstream — the table of contents, chapter auto-numbering, figure
 generation, lab/question wiring, and the manuscript-integrity tests — reads a
 single source of truth: [`manuscript/config.yaml`](manuscript/config.yaml). To
