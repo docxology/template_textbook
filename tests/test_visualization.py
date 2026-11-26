@@ -63,7 +63,8 @@ def test_generate_all_figures(tmp_path):
 
 def test_figure_registry_entries_match_manuscript_labels(tmp_path):
     plots.generate_all_figures(tmp_path)
-    entries = collect_figure_registry_entries(PROJECT_ROOT / "manuscript", tmp_path)
+    entries = collect_figure_registry_entries(PROJECT_ROOT / "docs" / "manuscript", tmp_path)
+    assert entries and all(entry.alt_text for entry in entries)
     labels = {entry.label for entry in entries}
     assert "fig:part_0_orientation" in labels
     assert "fig:gallery_line" in labels
@@ -76,9 +77,9 @@ def test_figure_registry_validates_manuscript_references(tmp_path):
     from visualization.gallery import generate_gallery_figures
 
     paths.extend(generate_gallery_figures(tmp_path / "gallery"))
-    registry = write_figure_registry(PROJECT_ROOT / "manuscript", tmp_path)
+    registry = write_figure_registry(PROJECT_ROOT / "docs" / "manuscript", tmp_path)
 
-    ok, issues = validate_figure_registry(registry, PROJECT_ROOT / "manuscript")
+    ok, issues = validate_figure_registry(registry, PROJECT_ROOT / "docs" / "manuscript")
 
     assert registry.exists()
     assert paths

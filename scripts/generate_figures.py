@@ -12,7 +12,7 @@ from __future__ import annotations
 import argparse
 from pathlib import Path
 
-from _bootstrap import PROJECT as PROJECT_DIR, ensure_project_paths
+from _bootstrap import MANUSCRIPT, PROJECT as PROJECT_DIR, ensure_project_paths
 
 ensure_project_paths()
 
@@ -42,7 +42,7 @@ def main() -> int:
         for path in gallery_paths:
             print(f"  ✓ {path}")
         paths += gallery_paths
-    registry_path = write_figure_registry(PROJECT_DIR / "manuscript", args.output_dir)
+    registry_path = write_figure_registry(MANUSCRIPT, args.output_dir)
     print(f"  ✓ {registry_path}")
     paths.append(registry_path)
     logger.info("Generated %d figures → %s", len(paths), args.output_dir)

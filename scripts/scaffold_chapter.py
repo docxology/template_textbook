@@ -1,11 +1,11 @@
 """Author tool: materialise missing chapter/lab/question stub files from config.
 
-For every chapter declared in ``manuscript/config.yaml`` this writes (when
+For every chapter declared in ``docs/manuscript/config.yaml`` this writes (when
 absent) a contract-satisfying stub:
 
-* chapter   -> ``manuscript/<part>/<file>``
-* lab       -> ``manuscript/labs/<part_id>/lab_<stem>.md``
-* questions -> ``manuscript/questions/<part_id>/q_<stem>.md``
+* chapter   -> ``docs/manuscript/<part>/<file>``
+* lab       -> ``docs/manuscript/labs/<part_id>/lab_<stem>.md``
+* questions -> ``docs/manuscript/questions/<part_id>/q_<stem>.md``
 
 Existing files are left untouched unless ``--force`` is given. This is the
 intended way to grow the book: add entries to ``config.yaml``, run this, then
@@ -16,7 +16,7 @@ from __future__ import annotations
 
 import argparse
 
-from _bootstrap import PROJECT as PROJECT_DIR, ensure_project_paths
+from _bootstrap import MANUSCRIPT, PROJECT as PROJECT_DIR, ensure_project_paths
 
 ensure_project_paths()
 
@@ -34,7 +34,7 @@ def main() -> int:
     parser.add_argument("--part", help="Only scaffold chapters in this part id (e.g. part_I)")
     args = parser.parse_args()
 
-    manuscript = PROJECT_DIR / "manuscript"
+    manuscript = MANUSCRIPT
     config = load_config(manuscript)
 
     written = 0

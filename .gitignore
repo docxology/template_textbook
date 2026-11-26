@@ -25,3 +25,7 @@ coverage_project.json
 
 # Local Mermaid render config (machine-specific Chrome path)
 .puppeteer.json
+
+# Fresh standalone pipeline outputs
+/output/
+/docs/output

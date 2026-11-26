@@ -24,7 +24,7 @@ helpers [`src/visualization/_scaffold.py`](../src/visualization/_scaffold.py)
 deterministic.
 
 The committed cover image
-[`manuscript/assets/cover/template_textbook_cover.png`](../manuscript/assets/cover/template_textbook_cover.png)
+[`docs/manuscript/assets/cover/template_textbook_cover.png`](manuscript/assets/cover/template_textbook_cover.png)
 is itself a deterministic, tested artifact: regenerate it by calling
 `cover_art(output_dir)` from [`src/visualization/plots.py`](../src/visualization/plots.py)
 (byte-stable nested modular blocks), then copy the result over the tracked asset.
@@ -94,7 +94,7 @@ To replace a chapter's generated placeholder with a real, data-driven figure:
    corresponding `generate_chapter_placeholders` entry).
 3. **Regenerate** with `uv run python scripts/generate_figures.py` and confirm
    `output/figures/<part_id>_<stem>.png` exists.
-4. **Update the chapter** so the figure caption and the `<!-- alt: ... -->`
+4. **Update the chapter** so the figure caption and the preceding `<!-- alt: ... -->`
    comment describe the real figure (the image path is already correct).
 5. **Run the visualization tests** (see the [testing guide](testing_guide.md)):
    `uv run --extra dev python -m pytest tests/test_visualization.py`. That module
@@ -127,5 +127,5 @@ Without a reachable browser, diagrams degrade gracefully to fenced code blocks i
 the output and `src/mermaid` writes `.mmd` source instead of PNG — the build
 never hard-fails. With it, the combined PDF embeds the rendered diagrams (verified:
 18 inline diagrams render into the book — one per chapter across the 12
-chapters in `manuscript/part_0/` through `manuscript/part_III/`, one in
+chapters in `docs/manuscript/part_0/` through `docs/manuscript/part_III/`, one in
 `appendix_authoring_guide.md`, and five in `appendix_format_gallery.md`).

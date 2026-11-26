@@ -4,6 +4,8 @@ from __future__ import annotations
 
 from dataclasses import dataclass
 from pathlib import Path
+
+from textbook_paths import manuscript_dir as _resolve_manuscript_dir
 from typing import Any
 
 from textbook import content
@@ -177,7 +179,7 @@ def run_manuscript_audit(
     per-section stub count a problem and also requires every declared section
     to exist.
     """
-    manuscript_dir = project_dir / "manuscript"
+    manuscript_dir = _resolve_manuscript_dir(project_dir)
     problems: list[str] = list(validate_config(config))
     rows: list[str] = []
     total_words = 0

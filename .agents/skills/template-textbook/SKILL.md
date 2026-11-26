@@ -53,5 +53,5 @@ uv run python scripts/pipeline/stage_05_copy.py --project templates/template_tex
 
 - Project contract: [`AGENTS.md`](../../../AGENTS.md)
 - README: [`README.md`](../../../README.md)
-- TODO: [`TODO.md`](../../../TODO.md)
-- Exemplar roster: [`projects/AGENTS.md`](../../../../../AGENTS.md)
+- TODO: [`TODO.md`](../../../docs/TODO.md)
+- Exemplar roster: [`projects/AGENTS.md`](https://github.com/docxology/template/blob/main/projects/AGENTS.md)

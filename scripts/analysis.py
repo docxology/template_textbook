@@ -11,7 +11,7 @@ import argparse
 import json
 from pathlib import Path
 
-from _bootstrap import PROJECT as PROJECT_DIR, ensure_project_paths
+from _bootstrap import MANUSCRIPT, PROJECT as PROJECT_DIR, ensure_project_paths
 
 ensure_project_paths()
 
@@ -27,8 +27,8 @@ def main() -> int:
     parser.add_argument("--output-dir", type=Path, default=PROJECT_DIR / "output" / "data")
     args = parser.parse_args()
 
-    source_label = "manuscript/assets/data/sample_dataset.csv"
-    summary = build_worked_model_summary(PROJECT_DIR / source_label, source_label=source_label)
+    dataset = MANUSCRIPT / "assets" / "data" / "sample_dataset.csv"
+    summary = build_worked_model_summary(dataset, source_label=dataset.relative_to(PROJECT_DIR).as_posix())
     out_path = args.output_dir / "worked_model_summary.json"
     write_text_atomic(out_path, json.dumps(summary, indent=2, sort_keys=True))
     logger.info("wrote %s", out_path)

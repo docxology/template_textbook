@@ -9,7 +9,7 @@ import pytest
 from textbook.analysis import DECAY_PARAMETERS, LOGISTIC_PARAMETERS, build_worked_model_summary
 
 PROJECT_ROOT = Path(__file__).resolve().parent.parent
-DATASET = PROJECT_ROOT / "manuscript" / "assets" / "data" / "sample_dataset.csv"
+DATASET = PROJECT_ROOT / "docs" / "manuscript" / "assets" / "data" / "sample_dataset.csv"
 
 
 def test_worked_model_summary_retains_inputs_and_outputs() -> None:
@@ -37,6 +37,6 @@ def test_worked_model_summary_is_deterministic() -> None:
 
 
 def test_worked_model_summary_accepts_portable_source_provenance() -> None:
-    summary = build_worked_model_summary(DATASET, source_label="manuscript/assets/data/sample_dataset.csv")
+    summary = build_worked_model_summary(DATASET, source_label="docs/manuscript/assets/data/sample_dataset.csv")
 
-    assert summary["case_study"]["source"] == "manuscript/assets/data/sample_dataset.csv"
+    assert summary["case_study"]["source"] == "docs/manuscript/assets/data/sample_dataset.csv"

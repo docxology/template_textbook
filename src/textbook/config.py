@@ -1,4 +1,4 @@
-"""Load and validate ``manuscript/config.yaml`` — the book's single source of truth."""
+"""Load and validate ``docs/manuscript/config.yaml`` — the book's single source of truth."""
 
 from __future__ import annotations
 
@@ -9,7 +9,7 @@ from typing import Any
 
 import yaml
 
-DEFAULT_MANUSCRIPT = Path(__file__).resolve().parent.parent.parent / "manuscript"
+from textbook_paths import MANUSCRIPT as DEFAULT_MANUSCRIPT
 
 
 @dataclass(frozen=True)
@@ -59,7 +59,7 @@ def load_config(path: Path | str | None = None) -> dict[str, Any]:
 
     Args:
         path: Path to ``config.yaml`` or to the manuscript directory containing
-            it. Defaults to the project's ``manuscript/config.yaml``.
+            it. Defaults to the project's ``docs/manuscript/config.yaml``.
     """
     if path is None:
         config_path = DEFAULT_MANUSCRIPT / "config.yaml"
