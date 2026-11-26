@@ -10,7 +10,7 @@ from __future__ import annotations
 
 import argparse
 
-from _bootstrap import PROJECT as PROJECT_DIR, ensure_project_paths
+from _bootstrap import MANUSCRIPT, PROJECT as PROJECT_DIR, ensure_project_paths
 
 ensure_project_paths()
 
@@ -39,7 +39,7 @@ def main() -> int:
     )
     args = parser.parse_args()
 
-    config = load_config(PROJECT_DIR / "manuscript")
+    config = load_config(MANUSCRIPT)
     report = run_manuscript_audit(
         PROJECT_DIR,
         config,

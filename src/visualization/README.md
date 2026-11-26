@@ -49,5 +49,5 @@ contour, quiver field, step, stacked area, error bars, log-log, pie, annotated,
 multi-panel). Each function is deterministic and returns a PNG; the registry
 `GALLERY` drives `generate_gallery_figures()`. `scripts/generate_figures.py`
 writes them to `output/figures/gallery/`, and
-`manuscript/appendices/appendix_format_gallery.md` embeds them. Add a new plot by
+`docs/manuscript/appendices/appendix_format_gallery.md` embeds them. Add a new plot by
 writing a `(output_dir) -> Path` function and registering it in `GALLERY`.

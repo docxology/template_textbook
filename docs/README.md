@@ -2,7 +2,7 @@
 
 A domain-neutral, modular, **fillable** scaffold for book-length technical
 works. The book's structure is data-driven from a single
-[`manuscript/config.yaml`](../manuscript/config.yaml); a tested Python backbone
+[`docs/manuscript/config.yaml`](manuscript/config.yaml); a tested Python backbone
 under [`src/`](../src) scaffolds, validates, and illustrates the manuscript; and
 thin orchestrator [`scripts/`](../scripts) wire everything into the repository's
 reproducible pipeline.
@@ -10,6 +10,12 @@ reproducible pipeline.
 If you are new here, read these in order.
 
 ## Guides
+
+- [Local setup, tests, and pinned renderer](development.md)
+- [Manuscript source index](manuscript/README.md)
+- [Standalone fork guide](standalone.md)
+- [Open work](TODO.md) and [publication snapshots](../rendered/README.md)
+
 
 | Guide | Read it to learn |
 | --- | --- |
@@ -23,7 +29,7 @@ If you are new here, read these in order.
 
 These are the artifacts the guides keep pointing back to:
 
-- [`manuscript/config.yaml`](../manuscript/config.yaml) — the book structure
+- [`docs/manuscript/config.yaml`](manuscript/config.yaml) — the book structure
   (parts, chapters, labs, question banks, appendices, layout, typography).
 - [`src/textbook/`](../src/textbook) — the content engine
   (`constants`, `config`, `toc`, `content`, `models`).
@@ -44,17 +50,13 @@ parameter table `{#tbl:...}`), an inline `` ```mermaid `` diagram, and
 Summary / Key Terms / Further Reading / Practice sections. Cross-references use
 pandoc-crossref syntax (`[@fig:..]`, `[@tbl:..]`, `[@eq:..]`, `[@sec:..]`) —
 never hand-numbered. Citations `[@key]` must resolve in
-[`references.bib`](../manuscript/references.bib); glossary links
+[`references.bib`](manuscript/references.bib); glossary links
 `[**term**](#gl:<anchor>)` must resolve in
-[`glossary.md`](../manuscript/glossary.md). The full contract and how to fill it
+[`glossary.md`](manuscript/glossary.md). The full contract and how to fill it
 live in the [authoring guide](authoring_guide.md).
 
 ## Tooling
 
-All commands use `uv` (never `pip`/`npm`) and run from the project directory —
-this repository root in a standalone mirror, or
-`projects/templates/template_textbook/` in the monorepo. Tests run with
-`uv run --extra dev python -m pytest`; two integrity modules additionally need
-the monorepo's `infrastructure/` package on `sys.path` (see the
-[`README.md`](../README.md) quick start). Figures and diagrams are produced by
-the scripts, never by hand. See each guide for exact invocations.
+Use the [development guide](development.md) to prepare the locked environment,
+connect the external engine for the full suite, and build the manuscript from
+this checkout.

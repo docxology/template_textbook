@@ -12,11 +12,9 @@ repository root of a standalone mirror, or
 extra provides `pytest` and `pytest-cov`.
 
 Two suite modules (`test_manuscript_integrity.py`, `test_visualization.py`)
-import `infrastructure.validation.content`, which ships only in the
-[`docxology/template`](https://github.com/docxology/template) monorepo. Run
-those from a monorepo checkout, or add
-`--ignore=tests/test_manuscript_integrity.py --ignore=tests/test_visualization.py`
-in a standalone mirror (see the [`README.md`](../README.md) quick start).
+import `infrastructure.validation.content`. Follow the
+[development guide](development.md) to expose the pinned Template checkout to
+the full test suite.
 
 ```bash
 # Full suite

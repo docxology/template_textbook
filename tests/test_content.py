@@ -108,7 +108,7 @@ def test_validate_chapter_flags_bad_figure_path():
 
 
 def test_validate_chapter_accepts_correct_figure_path():
-    """A figure path starting with '../../output/figures/' must not raise an issue."""
+    """A figure path starting with '../../../output/figures/' must not raise an issue."""
     good_text = content.scaffold_chapter(_chapter())
     # The scaffolded chapter always uses the correct path prefix.
     issues = content.validate_chapter(good_text)

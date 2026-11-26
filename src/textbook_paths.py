@@ -3,10 +3,10 @@
 Three levels of path are exposed:
 
 * ``PROJECT`` — the root directory of this textbook project
-  (parent of ``src/``, ``manuscript/``, ``scripts/``).
+  (parent of ``src/``, ``docs/manuscript/``, ``scripts/``).
 * ``SRC`` — the ``src/`` package directory added to ``sys.path`` so project
   modules are importable without installation.
-* ``MANUSCRIPT`` — the ``manuscript/`` directory (config, chapters, labs, etc.)
+* ``MANUSCRIPT`` — the ``docs/manuscript/`` directory (config, chapters, labs, etc.)
 
 :func:`ensure_project_paths` is the canonical bootstrap call; scripts should
 call it before importing any project module when running outside the normal
@@ -22,7 +22,14 @@ from pathlib import Path
 PROJECT = Path(__file__).resolve().parent.parent
 SRC = PROJECT / "src"
 SCRIPTS_DIR = PROJECT / "scripts"
-MANUSCRIPT = PROJECT / "manuscript"
+def manuscript_dir(project: Path) -> Path:
+    """Resolve the canonical source or an existing legacy scaffold."""
+    canonical = project / "docs" / "manuscript"
+    legacy = project / "manuscript"
+    return canonical if canonical.is_dir() or not legacy.is_dir() else legacy
+
+
+MANUSCRIPT = manuscript_dir(PROJECT)
 
 
 def ensure_project_paths(
@@ -120,5 +127,6 @@ __all__ = [
     "discover_template_root",
     "ensure_project_paths",
     "is_template_root",
+    "manuscript_dir",
     "template_root",
 ]

@@ -12,6 +12,7 @@ if str(_SRC) not in sys.path:
     sys.path.insert(0, str(_SRC))
 
 from textbook_paths import (  # noqa: E402
+    MANUSCRIPT,
     PROJECT,
     SCRIPTS_DIR,
     SRC,
@@ -20,6 +21,7 @@ from textbook_paths import (  # noqa: E402
 )
 
 __all__ = [
+    "MANUSCRIPT",
     "PROJECT",
     "SCRIPTS_DIR",
     "SRC",

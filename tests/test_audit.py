@@ -12,7 +12,7 @@ from textbook.config import ChapterRef, load_config
 
 
 PROJECT = Path(__file__).resolve().parent.parent
-MANUSCRIPT = PROJECT / "manuscript"
+MANUSCRIPT = PROJECT / "docs" / "manuscript"
 
 
 def test_run_manuscript_audit_real_project_passes():

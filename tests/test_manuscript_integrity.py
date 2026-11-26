@@ -1,6 +1,6 @@
 """Integrity tests binding the materialised manuscript to the engine contract.
 
-These run against the real files under ``manuscript/`` so a hand-edit that drops
+These run against the real files under ``docs/manuscript/`` so a hand-edit that drops
 a required section, cites an undefined key, or links a missing glossary anchor
 fails CI.
 """
@@ -19,7 +19,8 @@ from textbook import content
 from textbook.config import iter_chapters, iter_unit_intros, load_config, validate_config
 from textbook.constants import CITATION_KEYS, GLOSSARY_ANCHORS, REQUIRED_SECTION_HEADINGS
 
-MANUSCRIPT = Path(__file__).resolve().parent.parent / "manuscript"
+PROJECT_ROOT = Path(__file__).resolve().parent.parent
+MANUSCRIPT = PROJECT_ROOT / "docs" / "manuscript"
 CONFIG = load_config(MANUSCRIPT)
 CHAPTERS = iter_chapters(CONFIG)
 UNIT_INTROS = iter_unit_intros(CONFIG)
@@ -31,7 +32,7 @@ def test_config_is_valid():
 
 def test_claim_ledger_structural_counts_match_config():
     """Declared structural facts cannot drift from the config source of truth."""
-    ledger = yaml.safe_load((MANUSCRIPT.parent / "data" / "claim_ledger.yaml").read_text(encoding="utf-8"))
+    ledger = yaml.safe_load((PROJECT_ROOT / "data" / "claim_ledger.yaml").read_text(encoding="utf-8"))
     claims = {claim["claim_id"]: claim["value"] for claim in ledger["claims"]}
     assert claims["chapter-count"] == len(CHAPTERS)
     assert claims["part-count"] == len(CONFIG["units"])
@@ -171,7 +172,7 @@ def test_every_chapter_figure_resolves_and_is_producible(tmp_path):
 
     This is the irreducible gate for a fillable-textbook template: it catches a
     figure path that does not resolve (e.g. the old scaffolder bug that emitted
-    ``../figures/`` instead of ``../../output/figures/``) and any chapter that
+    ``../figures/`` instead of ``../../../output/figures/``) and any chapter that
     references a figure no generator produces. Without it those defects ship green.
     """
     from visualization import plots
@@ -180,7 +181,7 @@ def test_every_chapter_figure_resolves_and_is_producible(tmp_path):
     produced = {p.name for p in plots.generate_all_figures(tmp_path)}
     produced |= {p.name for p in generate_gallery_figures(tmp_path)}
 
-    figures_root = (MANUSCRIPT.parent / "output" / "figures").resolve()
+    figures_root = (PROJECT_ROOT / "output" / "figures").resolve()
     problems: list[str] = []
     for chapter in CHAPTERS:
         chapter_path = chapter.path(MANUSCRIPT)
@@ -201,7 +202,7 @@ def test_documentation_placeholders_do_not_trigger_image_missing_diagnostics() -
     """Validate textbook docs placeholders stay non-failing for image checks."""
     problems = validate_images(
         [str(MANUSCRIPT / "AGENTS.md"), str(MANUSCRIPT / "SYNTAX.md")],
-        MANUSCRIPT.parent,
+        PROJECT_ROOT,
     )
     missing = [problem for problem in problems if problem.code == MarkdownCode.IMG_MISSING]
     assert not missing, f"unexpected Markdown image diagnostics: {missing}"

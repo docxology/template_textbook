@@ -5,7 +5,12 @@ import re
 from dataclasses import asdict, dataclass
 from pathlib import Path
 
-_IMAGE_LABEL_RE = re.compile(r"!\[([^\]]*)\]\(([^)]+\.png)\)\{#(fig:[-A-Za-z0-9_.:]+)(?:\s[^}]*)?\}")
+_IMAGE_LABEL_RE = re.compile(
+    r"(?:<!-- alt:\s*((?:(?!<!--|-->).)*?)\s*-->\s*)?"
+    r"!\[([^\]]*)\]\(([^)]+\.png)\)\{#(fig:[-A-Za-z0-9_.:]+)((?:\s[^}]*)?)\}",
+    re.DOTALL,
+)
+_ALT_ATTRIBUTE_RE = re.compile(r'\balt="([^"]*)"')
 _SKIPPED_DOCS = frozenset({"AGENTS.md", "README.md", "SYNTAX.md"})
 
 
@@ -14,7 +19,7 @@ class FigureRegistryEntry:
     """One figure cross-referenced from manuscript prose to its generated file.
 
     Captures the label used in `{#fig:...}` markdown attributes, the figure's
-    filename relative to `output/figures/`, its caption text, the manuscript
+    filename relative to `output/figures/`, its caption and accessibility text, the manuscript
     file that references it, and the script responsible for generating it —
     the row shape written into `figure_registry.json`.
     """
@@ -22,6 +27,7 @@ class FigureRegistryEntry:
     label: str
     filename: str
     caption: str
+    alt_text: str | None
     source_markdown: str
     generated_by: str
 
@@ -34,7 +40,9 @@ def collect_figure_registry_entries(manuscript_dir: Path, figures_dir: Path) -> 
         if markdown_file.name in _SKIPPED_DOCS:
             continue
         text = markdown_file.read_text(encoding="utf-8")
-        for caption, image_path, label in _IMAGE_LABEL_RE.findall(text):
+        for alt_comment, caption, image_path, label, attributes in _IMAGE_LABEL_RE.findall(text):
+            alt_attribute = _ALT_ATTRIBUTE_RE.search(attributes)
+            alt_text = alt_comment or (alt_attribute[1] if alt_attribute else "")
             resolved = (markdown_file.parent / image_path).resolve()
             filename = _figure_filename(image_path, resolved, figures_root)
             entries.setdefault(
@@ -43,6 +51,7 @@ def collect_figure_registry_entries(manuscript_dir: Path, figures_dir: Path) -> 
                     label=label,
                     filename=filename,
                     caption=caption,
+                    alt_text=" ".join(alt_text.split()) or None,
                     source_markdown=markdown_file.relative_to(manuscript_dir).as_posix(),
                     generated_by="scripts/generate_figures.py",
                 ),

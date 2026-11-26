@@ -13,7 +13,7 @@ from textbook.audit import run_manuscript_audit
 
 
 PROJECT = Path(__file__).resolve().parent.parent
-MANUSCRIPT = PROJECT / "manuscript"
+MANUSCRIPT = PROJECT / "docs" / "manuscript"
 
 _CONFIG_WITH_PROJECT = {
     "book": {"title": "t"},
