@@ -32,11 +32,11 @@ is itself a deterministic, tested artifact: regenerate it by calling
 ### The filename contract
 
 Each chapter placeholder is named **`<part_id>_<stem>.png`** — for example
-`part_0_orientation.png`, `part_I_first_principles.png`. This exactly matches the
-image path the scaffolded chapter already references:
+`part_0_orientation.png`, `part_I_first_principles.png`. The scaffolded chapter
+uses this relative path from `docs/manuscript/<part>/`.
 
 ```markdown
-![Overview schematic …](../../output/figures/part_0_orientation.png){#fig:part_0_orientation width=90%}
+![Overview schematic …](../../../output/figures/part_0_orientation.png){#fig:part_0_orientation width=90%}
 ```
 
 Because the filename is derived from the same `ChapterRef` the manuscript uses,

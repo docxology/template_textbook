@@ -6,15 +6,17 @@ filter. For the rules governing *where* these must appear, see [`AGENTS.md`](AGE
 
 ## Figures
 
-Reference a generated PNG, give it a label, and add an alt-text comment:
+Reference a generated PNG, give it a label, and add an alt-text comment.
+From a chapter under `docs/manuscript/<part>/`, use
+`../../../output/figures/`.
 
 ```markdown
-# In a chapter (manuscript/<part>/<chapter>.md) use two `..` to reach output/figures/:
 <!-- alt: One-sentence description of the figure for accessibility. -->
 
 ![Caption describing the figure.](../../../output/figures/part_0_orientation.png){#fig:part_0_orientation width=90%}
-# (A top-level manuscript/*.md file would use a single `..`.)
 ```
+
+A file directly under `docs/manuscript/` uses `../../output/figures/`.
 
 Refer to it in prose with `[@fig:part_0_orientation]`.
 
