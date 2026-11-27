@@ -11,24 +11,15 @@ crossref/citation/glossary conventions as the main chapters.
 | [`appendix_authoring_guide.md`](appendix_authoring_guide.md) | `sec:appendix_authoring_guide` | How to fill the stubs and grow the book — **read first** |
 | [`appendix_notation.md`](appendix_notation.md) | `sec:appendix_notation` | Symbol table for the worked models |
 | [`appendix_math_review.md`](appendix_math_review.md) | `sec:appendix_math_review` | Just-enough math, tied to `src/textbook/models.py` |
-| [`appendix_index.md`](appendix_index.md) | `sec:appendix_index` | Generated index of key terms (placeholder) |
-
-The master glossary [`../glossary.md`](../glossary.md) is also included as a
-reference appendix (Appendix D).
+| [`appendix_formalisms.md`](appendix_formalisms.md) | `sec:appendix_formalisms` | Definitions, theorems, and algorithms |
+| [`appendix_format_gallery.md`](appendix_format_gallery.md) | `sec:appendix_format_gallery` | Examples of supported manuscript formats |
+| [Master Glossary](../glossary.md#master-glossary) | `master-glossary` | Authoritative term definitions |
+| [`appendix_index.md`](appendix_index.md) | `sec:appendix_index` | Index of key terms (placeholder) |
 
 ## Ordering is data-driven
 
-The order and display titles come from the single source of truth,
-[`../config.yaml`](../config.yaml), under `appendices.reference`. The current
-sequence is:
-
-```text
-A — appendix_authoring_guide.md   (sec:appendix_authoring_guide)
-B — appendix_notation.md          (sec:appendix_notation)
-C — appendix_math_review.md       (sec:appendix_math_review)
-D — glossary.md                   (master glossary)
-E — appendix_index.md             (sec:appendix_index)
-```
+The order and display titles come from `appendices.reference` in
+[`../config.yaml`](../config.yaml).
 
 To add, remove, or reorder an appendix, edit `appendices.reference` in
 `config.yaml` — never renumber by hand. Toggle whole groups with

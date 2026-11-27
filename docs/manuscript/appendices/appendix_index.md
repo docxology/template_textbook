@@ -1,4 +1,4 @@
-# Appendix E — Index of Key Terms {#sec:appendix_index}
+# Appendix G — Index of Key Terms {#sec:appendix_index}
 
 <!-- chapter-metadata-badge -->
 > Reference appendix · Generated index — do not hand-maintain.
@@ -9,7 +9,7 @@ future indexing pass will scan the chapters for glossary links
 `{#tbl:...}`, `{#eq:...}`) and collate page/section references from the rendered
 PDF. Until that pass runs, the entries below are placeholders.
 
-The authoritative term definitions live in [Appendix D — Glossary](#master-glossary);
+The authoritative term definitions live in the [Master Glossary](#master-glossary);
 the closed list of anchors is `GLOSSARY_ANCHORS` in
 [`src/textbook/constants.py`](https://github.com/docxology/template_textbook/blob/main/src/textbook/constants.py).
 
@@ -27,4 +27,4 @@ the closed list of anchors is `GLOSSARY_ANCHORS` in
 <!-- STUB: wire an index generator (scan glossary links + crossref labels) and
 emit this section automatically. -->
 
-See also: [Appendix D — Glossary](#master-glossary).
+See also: [Master Glossary](#master-glossary).
