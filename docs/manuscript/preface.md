@@ -30,12 +30,12 @@ more. A reader comfortable with that material can follow every chapter.
 
 Each chapter is paired with two companion documents:
 
-- **A lab** (under [`labs/`](labs/)) — a guided, hands-on exercise that puts the
+- **A lab** (under [`labs/`](https://github.com/docxology/template_textbook/blob/main/docs/manuscript/labs/README.md)) — a guided, hands-on exercise that puts the
   chapter's worked formalism to work. Labs are meant to be *done*, not just read:
   run the tested functions in `textbook.models`, vary the parameters, and observe
   how the predictions change. Work the lab immediately after reading the chapter,
   while the ideas are fresh.
-- **A question bank** (under [`questions/`](questions/)) — self-check questions
+- **A question bank** (under [`questions/`](https://github.com/docxology/template_textbook/blob/main/docs/manuscript/questions/README.md)) — self-check questions
   that confirm you can recall and apply the chapter's load-bearing claims. Use it
   as a diagnostic: a question you cannot answer points you back to a specific
   section.
@@ -49,7 +49,7 @@ chapters, they stay in lockstep with the manuscript as it grows.
 <!-- STUB --> Every equation in this book is implemented as a tested function and
 every figure is generated deterministically from code. Nothing in the prose is
 computed by hand. If you build the book yourself you will get byte-identical
-figures and numbers — see [`README.md`](README.md) for the build commands.
+figures and numbers — see the [standalone build guide](https://github.com/docxology/template_textbook/blob/main/docs/development.md) for the commands.
 
 <!-- STUB: sign off with your name, place, and date once the book is written. -->
 *— The Author, TKTK (place), TKTK (date)*

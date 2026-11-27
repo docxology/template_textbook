@@ -34,6 +34,11 @@ Each chapter file lives under `part_<label>/<stem>.md`. Its companion lab is
 from `config.yaml`, and `scripts/scaffold_chapter.py` will materialise any
 missing file in exactly the right shape.
 
+The [appendix source index](appendices/README.md), [master glossary source](glossary.md),
+[lab source index](labs/README.md), and [question-bank source index](questions/README.md)
+are the navigation entry points when browsing Markdown on GitHub. In the
+rendered book, glossary and appendix links lead to their sections.
+
 ## How `config.yaml` Controls Everything
 
 | You change in `config.yaml`… | …and this updates automatically |

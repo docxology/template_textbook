@@ -10,7 +10,7 @@ open while you work.
 
 ## The Big Idea: One Source of Truth
 
-The book is **data-driven from [`config.yaml`](../config.yaml)**. The list of
+The book is **data-driven from [`config.yaml`](https://github.com/docxology/template_textbook/blob/main/docs/manuscript/config.yaml)**. The list of
 parts, chapters, labs, question banks, and reference appendices lives there and
 nowhere else. The Python engine in `src/textbook/` reads that file and the
 scaffolding scripts in `scripts/` materialise the matching markdown files. You
@@ -26,7 +26,7 @@ edit config.yaml  ->  scaffold_chapter.py  ->  fill <!-- STUB --> blocks
 
 ## Step 1 — Decide the Structure in `config.yaml`
 
-Open [`config.yaml`](../config.yaml). To add or rename a chapter, edit the
+Open [`config.yaml`](https://github.com/docxology/template_textbook/blob/main/docs/manuscript/config.yaml). To add or rename a chapter, edit the
 `parts:` tree (each chapter has a `stem` and a `title`); to add a lab or
 question bank, add an entry under `appendices.labs` / `appendices.questions`
 for the matching part. The stem drives every downstream name:
@@ -74,7 +74,7 @@ Cross-reference syntax is pandoc-crossref: `[@fig:..]`, `[@tbl:..]`, `[@eq:..]`,
 
 Figures are deterministic matplotlib output. Each chapter expects a placeholder
 named `<part_id>_<stem>.png`. To make it real, add or edit a function in
-[`src/visualization/plots.py`](../../../src/visualization/plots.py) (the four worked
+[`src/visualization/plots.py`](https://github.com/docxology/template_textbook/blob/main/src/visualization/plots.py) (the four worked
 figures show the pattern), then regenerate:
 
 ```bash
@@ -89,8 +89,8 @@ prose with `[@fig:<part>_<stem>]` and give it alt text.
 
 Glossary anchors are a **closed contract**. To add a term you must update **both**:
 
-1. `GLOSSARY_ANCHORS` in [`src/textbook/constants.py`](../../../src/textbook/constants.py)
-2. the matching entry in [`glossary.md`](../glossary.md)
+1. `GLOSSARY_ANCHORS` in [`src/textbook/constants.py`](https://github.com/docxology/template_textbook/blob/main/src/textbook/constants.py)
+2. the matching entry in [`glossary.md`](#master-glossary)
 
 Link a term in prose as `[**term**](#gl:<anchor>)`. The current anchors are
 `system, model, parameter, variable, equilibrium, feedback, gradient, threshold,
@@ -98,7 +98,7 @@ network, dynamics, emergence, regulation, boundary, state, observable`.
 
 ## Step 6 — Add a Reference
 
-Citations are `[@key]` and must resolve in [`references.bib`](../references.bib).
+Citations are `[@key]` and must resolve in [`references.bib`](https://github.com/docxology/template_textbook/blob/main/docs/manuscript/references.bib).
 Add a BibTeX entry, then cite it. Keep `CITATION_KEYS` in `constants.py` in sync
 if you add a key that the structural contract should track.
 
@@ -133,6 +133,6 @@ To add a whole new chapter end-to-end:
 <!-- STUB: project-specific authoring notes — house style, citation policy,
 figure conventions — go here once you adopt the template. -->
 
-See also: [Appendix B — Notation](appendix_notation.md),
-[Appendix C — Mathematical Review](appendix_math_review.md), and the
-[appendices README](README.md).
+See also: [Appendix B — Notation](#sec:appendix_notation),
+[Appendix C — Mathematical Review](#sec:appendix_math_review), and the
+[appendices source index](https://github.com/docxology/template_textbook/blob/main/docs/manuscript/appendices/README.md).
