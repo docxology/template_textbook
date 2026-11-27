@@ -18,16 +18,16 @@ the full test suite.
 
 ```bash
 # Full suite
-uv run --extra dev python -m pytest
+uv run --locked --extra dev --python 3.14 python -m pytest
 
 # A single file
-uv run --extra dev python -m pytest tests/test_manuscript_integrity.py
+uv run --locked --extra dev --python 3.14 python -m pytest tests/test_manuscript_integrity.py
 
 # A single test
-uv run --extra dev python -m pytest tests/test_models.py::test_logistic_growth -v
+uv run --locked --extra dev --python 3.14 python -m pytest tests/test_models.py::test_logistic_growth_starts_at_initial_and_approaches_capacity -v
 
 # With coverage (the gate)
-uv run --extra dev python -m pytest --cov=src --cov-report=term-missing
+uv run --locked --extra dev --python 3.14 python -m pytest --cov=src --cov-report=term-missing
 ```
 
 `pythonpath = ["src"]`, `testpaths`, and the default options live in
@@ -65,7 +65,7 @@ sits comfortably above the floor. Keep new `src/` code covered: a function with 
 test will pull coverage below the floor and fail the gate.
 
 ```bash
-uv run --extra dev python -m pytest --cov=src --cov-fail-under=90
+uv run --locked --extra dev --python 3.14 python -m pytest --cov=src --cov-fail-under=90
 ```
 
 ## Manuscript-integrity tests
@@ -105,8 +105,8 @@ walks the tree. The default audit is structural and allows the fillable
 exemplar's stubs; `--require-complete` is the separate zero-stub gate.
 
 ```bash
-uv run python scripts/audit_textbook_quality.py
-uv run python scripts/audit_textbook_quality.py --lenient
+uv run --locked --extra dev --python 3.14 python scripts/audit_textbook_quality.py
+uv run --locked --extra dev --python 3.14 python scripts/audit_textbook_quality.py --lenient
 ```
 
 Strict by default; pass `--lenient` only for partial-tree progress checks. Together with
