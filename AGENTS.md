@@ -74,8 +74,9 @@ Before claiming a change is done:
       formalism, diagram, summary/terms/reading/practice)?
 - [ ] New figure or diagram? Regenerate with `scripts/generate_figures.py` /
       `scripts/generate_diagrams.py` (deterministic, fixed seed).
-- [ ] `uv run --locked --extra dev python -m pytest tests/ --cov=src --cov-fail-under=90`
-      passes (collected > 0, ≥90%).
+- [ ] Follow the [test setup](docs/testing_guide.md#running-the-suite) for Python
+      3.14 and the pinned Template checkout. The [coverage gate](docs/testing_guide.md#coverage-gate)
+      passes with tests collected and at least 90% coverage.
 - [ ] `scripts/audit_textbook_quality.py` passes for scaffold structure.
 - [ ] Before describing a fork as filled or complete,
       `scripts/audit_textbook_quality.py --require-complete` passes with zero

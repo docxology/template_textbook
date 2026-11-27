@@ -6,11 +6,9 @@ Tests cover the engine in [`../src/`](../src/). Two hard requirements:
    mocking framework. Use real temp files (`tmp_path`), real numeric inputs, and
    subprocess for any CLI. HTTP (if ever needed) uses `pytest-httpserver`.
 2. **90% project coverage minimum.** Adding logic to `src/` requires a real test
-   here. Verify before claiming done:
-
-   ```bash
-   uv run --extra dev python -m pytest tests --cov=src --cov-report=term-missing
-   ```
+   here. Follow the [test setup](../docs/testing_guide.md#running-the-suite) for
+   Python 3.14 and the pinned Template checkout, then run the
+   [coverage gate](../docs/testing_guide.md#coverage-gate).
 
 ## Where to add a test
 
