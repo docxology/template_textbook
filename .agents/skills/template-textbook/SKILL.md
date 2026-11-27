@@ -20,10 +20,10 @@ Project-scoped skill for the in-repo exemplar at
 - Validating that the exemplar's contracts (thin-orchestrator, layer boundaries,
   no-mocks testing) still hold after changes.
 
-## Quick Reference
+## Template monorepo quick reference
 
 ```bash
-# From the repository root
+# From the Template monorepo root
 uv run pytest projects/templates/template_textbook/tests --cov=projects/templates/template_textbook/src --cov-fail-under=90
 # Structural scaffold gate (reports stubs but allows them)
 uv run python projects/templates/template_textbook/scripts/audit_textbook_quality.py
@@ -33,6 +33,18 @@ uv run python scripts/pipeline/stage_02_analysis.py --project templates/template
 uv run python scripts/pipeline/stage_03_render.py --project templates/template_textbook
 uv run python scripts/pipeline/stage_04_validate.py --project templates/template_textbook
 uv run python scripts/pipeline/stage_05_copy.py --project templates/template_textbook
+```
+
+## Standalone checkout
+
+From the standalone `template_textbook` repository root, prepare the pinned
+renderer import path described in the [development guide](../../../docs/development.md).
+Use the [standalone test guide](../../../docs/testing_guide.md) for the current
+suite, coverage command, and single-test example.
+
+```bash
+uv run --locked --extra dev --python 3.14 python -m pytest tests/ --cov=src --cov-fail-under=90
+uv run --locked --extra dev --python 3.14 python scripts/audit_textbook_quality.py
 ```
 
 ## Pitfalls

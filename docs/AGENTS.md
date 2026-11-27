@@ -1,7 +1,7 @@
 # `template_textbook/docs/` — Agent Guide
 
 Documentation set for the **fillable book-length scaffold** exemplar. The book's
-structure is data-driven from [`../manuscript/config.yaml`](manuscript/config.yaml);
+structure is data-driven from [`manuscript/config.yaml`](manuscript/config.yaml);
 a tested `src/textbook` engine scaffolds/validates/illustrates the manuscript;
 thin `scripts/` orchestrators wire it into the reproducible pipeline.
 
