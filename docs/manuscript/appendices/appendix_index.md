@@ -9,9 +9,9 @@ future indexing pass will scan the chapters for glossary links
 `{#tbl:...}`, `{#eq:...}`) and collate page/section references from the rendered
 PDF. Until that pass runs, the entries below are placeholders.
 
-The authoritative term definitions live in [Appendix D — Glossary](../glossary.md);
+The authoritative term definitions live in [Appendix D — Glossary](#master-glossary);
 the closed list of anchors is `GLOSSARY_ANCHORS` in
-[`src/textbook/constants.py`](../../../src/textbook/constants.py).
+[`src/textbook/constants.py`](https://github.com/docxology/template_textbook/blob/main/src/textbook/constants.py).
 
 ## Placeholder Entries
 
@@ -27,4 +27,4 @@ the closed list of anchors is `GLOSSARY_ANCHORS` in
 <!-- STUB: wire an index generator (scan glossary links + crossref labels) and
 emit this section automatically. -->
 
-See also: [Appendix D — Glossary](../glossary.md).
+See also: [Appendix D — Glossary](#master-glossary).

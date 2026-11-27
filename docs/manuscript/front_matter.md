@@ -20,7 +20,7 @@ element in place and every author-specific passage left as a marked **stub** for
 you to fill.
 
 The whole book is **data-driven from a single source of truth**,
-[`config.yaml`](config.yaml). That file declares the parts, the chapters inside
+[`config.yaml`](https://github.com/docxology/template_textbook/blob/main/docs/manuscript/config.yaml). That file declares the parts, the chapters inside
 each part, the front matter, the appendices, and the labs and question banks. The
 table of contents, chapter numbering, figure numbering, and the
 manuscript-integrity tests all read from it. You grow the book by editing
@@ -34,7 +34,7 @@ What is already provided for you:
   Objectives, a worked formalism (equation + parameter table), an inline Mermaid
   diagram, and Summary / Key Terms / Further Reading / Practice sections.
 - **A matching lab and question bank** for every chapter, under
-  [`labs/`](labs/) and [`questions/`](questions/).
+  [`labs/`](https://github.com/docxology/template_textbook/blob/main/docs/manuscript/labs/README.md) and [`questions/`](https://github.com/docxology/template_textbook/blob/main/docs/manuscript/questions/README.md).
 - **A tested computational backbone** in `src/` — the worked equations are real,
   tested Python functions (`textbook.models`), and figures are generated
   deterministically. Chapter prose *calls* these functions rather than retyping
@@ -46,8 +46,8 @@ What is already provided for you:
 Everywhere author-specific content belongs, you will find a stub marker:
 `<!-- STUB -->`, `TODO:`, or `TKTK`. The quality audit counts these, so your
 progress toward a finished book is measurable. See
-[Appendix A — Authoring Guide](appendices/appendix_authoring_guide.md) and
-[`AGENTS.md`](AGENTS.md) for the full filling workflow.
+[Appendix A — Authoring Guide](#sec:appendix_authoring_guide) and
+[`AGENTS.md`](https://github.com/docxology/template_textbook/blob/main/docs/manuscript/AGENTS.md) for the full filling workflow.
 
 ---
 
@@ -71,7 +71,7 @@ independently.
 Each chapter ends with a **Practice** section pointing to its **lab** (a guided,
 hands-on exercise) and its **question bank** (self-check questions). Work the lab
 after reading; use the question bank to confirm you can recall and apply the
-material. New terms are linked to the [Master Glossary](glossary.md) the first
+material. New terms are linked to the [Master Glossary](#master-glossary) the first
 time they appear.
 
 ---
@@ -79,21 +79,14 @@ time they appear.
 ## Methodology: How This Book Is Generated
 
 This manuscript is rendered, not typeset by hand. The pipeline reads
-[`config.yaml`](config.yaml), runs the analysis scripts that produce figures and
+[`config.yaml`](https://github.com/docxology/template_textbook/blob/main/docs/manuscript/config.yaml), runs the analysis scripts that produce figures and
 diagrams, assembles the Markdown sections in declared order, and renders a PDF
 through Pandoc with `pandoc-crossref` resolving every cross-reference and
 citation.
 
-To build the book from the repository root:
-
-```bash
-uv run python scripts/pipeline/stage_02_analysis.py --project templates/template_textbook
-uv run python scripts/pipeline/stage_03_render.py    --project templates/template_textbook
-```
-
-or run the full pipeline with `./run.sh`. See [`README.md`](README.md) for the
-manuscript directory layout and [`SYNTAX.md`](SYNTAX.md) for the exact authoring
-syntax.
+Follow the [standalone build guide](https://github.com/docxology/template_textbook/blob/main/docs/development.md)
+for setup and the pinned rendering commands. See
+[`SYNTAX.md`](https://github.com/docxology/template_textbook/blob/main/docs/manuscript/SYNTAX.md) for authoring syntax.
 
 <!-- STUB: add a copyright line, ISBN, and edition statement here at
 publication time. The licence and edition are declared in config.yaml. -->

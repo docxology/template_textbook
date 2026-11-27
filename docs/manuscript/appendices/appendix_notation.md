@@ -4,7 +4,7 @@
 > Reference appendix · Symbol glossary for the worked models.
 
 This appendix lists the symbols used by the worked formalisms in
-[`src/textbook/models.py`](../../../src/textbook/models.py). Keep it in sync with the
+[`src/textbook/models.py`](https://github.com/docxology/template_textbook/blob/main/src/textbook/models.py). Keep it in sync with the
 parameter tables (`{#tbl:...}`) in the chapters: every symbol that appears in an
 equation `{#eq:...}` should have a row here.
 
@@ -33,4 +33,4 @@ equation `{#eq:...}` should have a row here.
 
 <!-- STUB: add project-specific symbols and any reused Greek letters here. -->
 
-See also: [Appendix C — Mathematical Review](appendix_math_review.md).
+See also: [Appendix C — Mathematical Review](#sec:appendix_math_review).
