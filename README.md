@@ -129,10 +129,16 @@ chapters in all.
 
 ## Quick start
 
-Install the locked development extra with `uv sync --locked --extra dev` and
-read the [documentation index](docs/README.md). The [development
-guide](docs/development.md) covers figure generation, full tests, the structural
-audit, and the pinned multi-format render.
+Install the locked development environment with Python 3.14.
+
+```bash
+uv sync --locked --extra dev --python 3.14
+```
+
+The [testing guide](docs/testing_guide.md) covers the pinned Template
+checkout required by the full suite. The [development guide](docs/development.md)
+covers figure generation, the structural audit, and multi-format rendering.
+See the [documentation index](docs/README.md) for the project guides.
 
 ## How to grow the book
 
@@ -204,7 +210,9 @@ Dual-licensed: **code** (`src/`, `scripts/`, `tests/`) under **Apache-2.0**
 
 - Forward backlog: [`TODO.md`](docs/TODO.md).
 - Copy-and-customize config: [`docs/manuscript/config.yaml.example`](docs/manuscript/config.yaml.example).
-- Project validation: `uv run --extra dev python -m pytest tests/ --cov=src --cov-fail-under=90`.
+- For project validation, follow the [test setup](docs/testing_guide.md#running-the-suite)
+  for Python 3.14 and the pinned Template checkout, then run the
+  [90% coverage gate](docs/testing_guide.md#coverage-gate).
 - Repo drift validation (monorepo only): `uv run python scripts/audit/check_template_drift.py --strict` from a `docxology/template` checkout.
 
 <!-- foam-orphan-nav:start (hand-maintained: links sub-docs so they are reachable; no generator refreshes or validates this block) -->

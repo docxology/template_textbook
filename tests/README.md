@@ -7,9 +7,10 @@ live in the monorepo's
 and follows the repository's **no-mocks policy** — every test uses real data,
 real files, and real computation.
 
-`test_manuscript_integrity.py` and `test_visualization.py` import the
-monorepo-only `infrastructure.validation.content` package, so they only collect
-from a `docxology/template` checkout; the other modules run standalone.
+`test_manuscript_integrity.py` and `test_visualization.py` import
+`infrastructure.validation.content` from Template. For a standalone checkout,
+the [testing guide](../docs/testing_guide.md#running-the-suite) explains how to
+use Python 3.14 and put the pinned Template checkout on `PYTHONPATH`.
 
 ## Suite map
 
@@ -33,13 +34,13 @@ Determinism is required — fixed seeds, no wall-clock dependence.
 
 ## Running
 
-```bash
-# full suite with coverage
-uv run --extra dev python -m pytest tests --cov=src --cov-report=term-missing
+Follow the [full-suite instructions](../docs/testing_guide.md#running-the-suite)
+and run the [90% coverage gate](../docs/testing_guide.md#coverage-gate).
+For a focused check from the project root, use the locked Python 3.14 environment.
 
-# a single file or test
-uv run --extra dev python -m pytest tests/test_models.py -v
-uv run --extra dev python -m pytest tests/test_content.py::test_validate_chapter_flags_missing_pieces -v
+```bash
+uv run --locked --extra dev --python 3.14 python -m pytest tests/test_models.py -v
+uv run --locked --extra dev --python 3.14 python -m pytest tests/test_content.py::test_validate_chapter_flags_missing_pieces -v
 ```
 
 ## Integrity & audit gates
