@@ -3,12 +3,13 @@
 from __future__ import annotations
 
 import os
+import shutil
 import subprocess
 from pathlib import Path
 
 import pytest
 
-from mermaid import diagrams
+from mermaid import diagrams, renderer
 from mermaid.renderer import MermaidRenderer, RenderResult, _resolve_mmdc, _run_mmdc, mmdc_available
 
 
@@ -167,12 +168,12 @@ def test_mmdc_available_returns_bool():
 
 
 def test_mmdc_resolution_accepts_repository_local_install():
-    """The canonical checkout works without a caller-managed PATH export."""
-    local_mmdc = Path(__file__).resolve().parents[4] / "node_modules" / ".bin" / "mmdc"
-    if local_mmdc.exists():
-        assert _resolve_mmdc() == str(local_mmdc)
-    else:
-        assert _resolve_mmdc() is None or mmdc_available()
+    """Resolve the CLI from PATH or the nearest enclosing Node install."""
+    local_candidates = (
+        parent / "node_modules" / ".bin" / "mmdc" for parent in Path(renderer.__file__).resolve().parents
+    )
+    local_mmdc = next((str(candidate) for candidate in local_candidates if candidate.exists()), None)
+    assert _resolve_mmdc() == (shutil.which("mmdc") or local_mmdc)
 
 
 def test_build_flowchart_defaults():
