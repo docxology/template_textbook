@@ -34,7 +34,7 @@ What is already provided for you:
   Objectives, a worked formalism (equation + parameter table), an inline Mermaid
   diagram, and Summary / Key Terms / Further Reading / Practice sections.
 - **A matching lab and question bank** for every chapter, under
-  [`labs/`](https://github.com/docxology/template_textbook/blob/main/docs/manuscript/labs/README.md) and [`questions/`](https://github.com/docxology/template_textbook/blob/main/docs/manuscript/questions/README.md).
+  [lab guide](https://github.com/docxology/template_textbook/blob/main/docs/manuscript/labs/README.md) and [question bank guide](https://github.com/docxology/template_textbook/blob/main/docs/manuscript/questions/README.md).
 - **A tested computational backbone** in `src/` — the worked equations are real,
   tested Python functions (`textbook.models`), and figures are generated
   deterministically. Chapter prose *calls* these functions rather than retyping
@@ -46,7 +46,7 @@ What is already provided for you:
 Everywhere author-specific content belongs, you will find a stub marker:
 `<!-- STUB -->`, `TODO:`, or `TKTK`. The quality audit counts these, so your
 progress toward a finished book is measurable. See
-[Appendix A — Authoring Guide](#sec:appendix_authoring_guide) and
+Appendix A — Authoring Guide ([@sec:appendix_authoring_guide]) and
 [`AGENTS.md`](https://github.com/docxology/template_textbook/blob/main/docs/manuscript/AGENTS.md) for the full filling workflow.
 
 ---

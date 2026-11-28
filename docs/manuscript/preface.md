@@ -30,12 +30,12 @@ more. A reader comfortable with that material can follow every chapter.
 
 Each chapter is paired with two companion documents:
 
-- **A lab** (under [`labs/`](https://github.com/docxology/template_textbook/blob/main/docs/manuscript/labs/README.md)) — a guided, hands-on exercise that puts the
+- **A lab** (under [lab guide](https://github.com/docxology/template_textbook/blob/main/docs/manuscript/labs/README.md)) — a guided, hands-on exercise that puts the
   chapter's worked formalism to work. Labs are meant to be *done*, not just read:
   run the tested functions in `textbook.models`, vary the parameters, and observe
   how the predictions change. Work the lab immediately after reading the chapter,
   while the ideas are fresh.
-- **A question bank** (under [`questions/`](https://github.com/docxology/template_textbook/blob/main/docs/manuscript/questions/README.md)) — self-check questions
+- **A question bank** (under [question bank guide](https://github.com/docxology/template_textbook/blob/main/docs/manuscript/questions/README.md)) — self-check questions
   that confirm you can recall and apply the chapter's load-bearing claims. Use it
   as a diagnostic: a question you cannot answer points you back to a specific
   section.
