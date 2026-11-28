@@ -96,10 +96,12 @@ To replace a chapter's generated placeholder with a real, data-driven figure:
    `output/figures/<part_id>_<stem>.png` exists.
 4. **Update the chapter** so the figure caption and the preceding `<!-- alt: ... -->`
    comment describe the real figure (the image path is already correct).
-5. **Run the visualization tests** (see the [testing guide](testing_guide.md)):
-   `uv run --extra dev python -m pytest tests/test_visualization.py`. That module
-   imports the monorepo-only `infrastructure.validation.content` package, so it
-   collects only from a `docxology/template` checkout.
+5. **Run the visualization tests** (see the [testing guide](testing_guide.md)).
+   For a standalone checkout, follow the [development guide](development.md)
+   to prepare the locked Python 3.14 dev environment and put the pinned Template
+   checkout on `PYTHONPATH` for the shared figure validator. From the project root,
+   run `uv run --locked --extra dev --python 3.14 python -m pytest tests/test_visualization.py`.
+   Mermaid CLI and Chromium are used for the diagram rendering below.
 
 Keep figures deterministic: fixed seeds, fixed sizes via `new_figure`, no
 timestamps or randomised colours. The same input must always produce the same
